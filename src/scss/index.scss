@@ -1,18 +1,27 @@
 @import 'colors';
 
 @font-face {
-    font-family: 'Nunito';
-    font-style: normal;
-    font-weight: normal;
-    src: url(../fonts/Nunito/Nunito-400.woff2) format('woff2');
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/Nunito/Nunito-400.woff2) format('woff2'),
+    url(../fonts/Nunito/Nunito-400.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../fonts/Nunito/Nunito-700.woff2) format('woff2'),
+    url(../fonts/Nunito/Nunito-700.woff) format('woff');
 }
 
 body {
-    color: $red;
-    background: white url(../others/favicon.ico);
+  color: $red;
+  background: white url(../images/favicon.ico);
 }
 
 h1 {
-    text-transform: uppercase;
-    font-family: 'Nunito', serif;
+  text-transform: uppercase;
+  font-family: 'Nunito', serif;
 }

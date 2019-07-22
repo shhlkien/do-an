@@ -1,0 +1,5 @@
+{
+  "e4x": true,
+  "brace_style": "end-expand,preserve-inline",
+  "indent_size": 2
+}

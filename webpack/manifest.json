@@ -1,14 +1,16 @@
 {
   "goodbye": [
-    "/assets/css/463b764.css",
+    "/assets/css/310a453.css",
     "/assets/js/8dfdbe8.js"
   ],
   "index": [
-    "/assets/css/463b764.css",
+    "/assets/css/310a453.css",
     "/assets/js/1cf51cb.js"
   ],
   "fonts/index.scss": [
-    "/assets/fonts/Nunito-400.woff2",
-    "/assets/fonts/favicon.ico"
+    "/assets/fonts/Nunito-400.woff2"
+  ],
+  "images/index.scss": [
+    "/assets/images/favicon.ico"
   ]
 }
