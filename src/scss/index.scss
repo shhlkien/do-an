@@ -1,0 +1,18 @@
+@import 'colors';
+
+@font-face {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: normal;
+    src: url(../fonts/Nunito/Nunito-400.woff2) format('woff2');
+}
+
+body {
+    color: $red;
+    background: white url(../others/favicon.ico);
+}
+
+h1 {
+    text-transform: uppercase;
+    font-family: 'Nunito', serif;
+}
