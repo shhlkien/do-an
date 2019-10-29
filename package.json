@@ -1,5 +1,5 @@
 {
-  "name": "webpack5",
+  "name": "webpack-express",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -30,9 +30,12 @@
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js"
   },
-  "author": "",
+  "author": "Phạm Trung Kiên",
   "license": "ISC",
   "nodemonConfig": {
-    "ignore": ["node_modules/", "src/"]
+    "ignore": [
+      "node_modules/",
+      "src/"
+    ]
   }
 }

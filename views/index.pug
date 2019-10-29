@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        meta(http-equiv="X-UA-Compatible", content="ie=edge")
-        title Webpack 5
-        each path in css
-            link(rel="stylesheet" href=path)
-    body
-        h1 hello from webpack
-        p test
-        each path in js
-            script(src=path)
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Webpack - Express
+    link(rel='shortcut icon' type='image/x-icon' href='/assets/images/favicon.ico')
+    //- for chromium api
+    link(rel='preload' href='/assets/fonts/Nunito-400.woff2' as='font' type='font/woff2' crossorigin)
+    link(rel='preload' href='/assets/fonts/Nunito-700.woff2' as='font' type='font/woff2' crossorigin)
+    each path in css
+      link(rel="stylesheet" href=path)
+  body
+    section.section
+      article.media
+        figure.media-left
+          p.image.is-64x64
+            img(src='https://bulma.io/images/placeholders/128x128.png')
+        .media-content
+          .content
+            p
+              strong John Smith
+              small @johnsmith
+              small 31m
+              br
+              | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+    each path in js
+      script(async src=path)

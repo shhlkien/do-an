@@ -1,0 +1,9 @@
+@import '../general/colors';
+@import '../general/fonts';
+@import '~bulma/bulma.sass';
+
+body {
+  color: $red;
+  background: white url(../../images/favicon.ico) no-repeat;
+  font-family: 'Nunito', serif;
+}

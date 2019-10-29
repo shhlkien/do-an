@@ -1,14 +1,19 @@
 {
+  "goodbye~index": [
+    "/assets/css/0.ba19ebf.css",
+    "/assets/js/0.7c073d1.js"
+  ],
   "goodbye": [
-    "/assets/css/310a453.css",
-    "/assets/js/8dfdbe8.js"
+    "/assets/js/d969c95.js"
   ],
   "index": [
-    "/assets/css/310a453.css",
-    "/assets/js/1cf51cb.js"
+    "/assets/js/b06d538.js"
   ],
   "fonts/index.scss": [
-    "/assets/fonts/Nunito-400.woff2"
+    "/assets/fonts/Nunito-400.woff",
+    "/assets/fonts/Nunito-400.woff2",
+    "/assets/fonts/Nunito-700.woff",
+    "/assets/fonts/Nunito-700.woff2"
   ],
   "images/index.scss": [
     "/assets/images/favicon.ico"
