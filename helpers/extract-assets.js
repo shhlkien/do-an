@@ -19,8 +19,20 @@ module.exports = (res, ...entries) => {
     asset = assets[entries[i]];
     asset = Array.isArray(asset) ? asset : [asset];
 
-    let csses = asset.filter(path => path.indexOf('css') >= 0),
-      jses = asset.filter(path => path.indexOf('js') >= 0);
+    // if (entries[i].indexOf('fonts') >= 0) {
+
+    //   fonts = asset.map(path => process.env.NODE_ENV !== 'production' ? '/assets/' + path : path);
+    //   continue;
+    // }
+
+    // if (entries[i].indexOf('favicon') >= 0) {
+
+    //   favicon = process.env.NODE_ENV !== 'production' ? '/assets/' + asset[0] : asset[0];
+    //   continue;
+    // }
+
+    let csses = asset.filter(path => path.indexOf('css') >= 0);
+    let jses = asset.filter(path => path.indexOf('js') >= 0);
 
     if (process.env.NODE_ENV !== 'production') {
 

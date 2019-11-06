@@ -1,11 +1,11 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 module.exports = {
   mode: 'development',
   entry: {
-    index: './src/js/index.js',
-    goodbye: './src/js/goodbye.js',
+    'face-comparison': './src/js/face-comparison.js',
   },
   output: {
     filename: 'js/[contenthash:7].js',
@@ -26,7 +26,7 @@ module.exports = {
         use: [{
           loader: 'file-loader',
           options: {
-            name: 'fonts/[name].[ext]'
+            name: 'fonts/[hash:7].[ext]'
           }
         }]
       },
@@ -35,14 +35,17 @@ module.exports = {
         use: [{
           loader: 'file-loader',
           options: {
-            name: 'images/[name].[ext]'
+            name: 'images/[hash:7].[ext]'
           }
         }]
-      }
+      },
     ]
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: 'css/[contenthash:7].css' }),
+    new CopyWebpackPlugin([
+      { from: 'src/models/weights', to: 'weights/' }
+    ]),
   ],
   optimization: {
     splitChunks: {

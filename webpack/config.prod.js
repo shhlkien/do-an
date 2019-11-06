@@ -1,4 +1,5 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -8,8 +9,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 module.exports = {
   mode: 'production',
   entry: {
-    index: './src/js/index.js',
-    goodbye: './src/js/goodbye.js',
+    'face-comparison': './src/js/face-comparison.js',
   },
   output: {
     filename: 'js/[contenthash:7].js',
@@ -30,7 +30,7 @@ module.exports = {
         use: [{
           loader: 'file-loader',
           options: {
-            name: 'fonts/[name].[ext]'
+            name: 'fonts/[hash:7].[ext]'
           }
         }]
       },
@@ -39,7 +39,7 @@ module.exports = {
         use: [{
           loader: 'file-loader',
           options: {
-            name: 'images/[name].[ext]'
+            name: 'images/[folder]/[hash:7].[ext]'
           }
         }]
       }
@@ -55,7 +55,7 @@ module.exports = {
 
         for (file of files) {
 
-          const name = file.name.replace(/(\.css|\.js)$/, '');
+          const name = file.name.replace(/(\.s?[ac]ss|\.js)$/, '');
 
           manifest[name] = manifest[name] || [];
           manifest[name].push(file.path);
@@ -65,6 +65,9 @@ module.exports = {
       }
     }),
     new MiniCssExtractPlugin({ filename: 'css/[contenthash:7].css' }),
+    new CopyWebpackPlugin([
+      { from: 'src/models/weights/', to: 'weights/' }
+    ]),
   ],
   optimization: {
     splitChunks: {

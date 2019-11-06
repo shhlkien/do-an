@@ -1,28 +1,53 @@
-## Basic setup for webpack ^4.x with Node.js and Express
+# Face recognition
 
-##### Note:
-- For optimal code needed, I only config `webpackDevMiddleware` to report if there is an error. Change to `normal` to see what webpack does.
-```js
- app.use(webpackDevMiddleware(compiler, {
-    stats: 'errors-only',
-  }));
+## Purpose
+**This project for studying purpose only**
+
+Mustering application
+
+## Build status
+[![Build Status](https://img.shields.io/badge/build-developing-blue.svg)]()
+
+
+## Screenshots
+
+
+## Tech/framework used
+- [face-api.js](https://justadudewhohacks.github.io/face-api.js/docs/index.html)
+
+## Features
+- Face comparison
+- Webcam face expression recognition
+
+### Bugs
+What are bitting your project
+
+## Installation and run
+```sh
+npm i
+npm run build
+npm start
 ```
-- If you are using `optimization.splitChunks.chunks: all`, remember to extract assets from chunks to get the right import.
-```js
-// index.js
-import 'index.css';
-// goodbye.js
-import 'index.css';
 
-// no chunks:
-// index router
-const assets = extractAssets(res, 'index');
-// goodbye router
-const assets = extractAssets(res, 'goodbye');
+## License
+The MIT License
 
-// shared chunks
-// index router
-const assets = extractAssets(res, 'index', 'goodbye~index'); // '~' is default delimiter between chunks
-// goodbye router
-const assets = extractAssets(res, 'goodbye', 'goodbye~index');
-```
+Copyright (c) [Phạm Trung Kiên]()
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
