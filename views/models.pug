@@ -1,0 +1,41 @@
+extends layout
+
+block js
+  script(async src='/lib/cropperjs/dist/cropper.min.js')
+
+block content
+  section.section
+    .columns.is-mobile
+      .column.is-5
+        .notification.is-hidden
+          button.delete(type='button')
+
+        form#upload(method='post' enctype='multipart/form-data')
+          label.label Name
+          .field.is-grouped
+            .control.is-expanded
+              input.input(type='text' placeholder='Person' name='name')
+            .control
+              button.button.is-info(type='submit') Upload
+          p.help.has-text-danger.is-hidden Please provide person's name
+
+          .field
+            .file
+              label.file-label
+                input.file-input(type='file' accept='image/*' multiple name='models[]')
+                span.file-cta
+                  span.file-label Choose model images...
+            p.help.has-text-danger.is-hidden Please provide model images
+
+        .tile.is-ancestor
+
+      .column
+        .columns.is-centered.is-mobile
+          .column.is-narrow
+            .buttons
+              button#cropBtn.button.is-info.is-outlined(type='button') Crop
+              button#resetBtn.button.is-info.is-outlined(type='button') Reset
+        .columns
+          .column
+            figure.image
+              img#editable

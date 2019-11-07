@@ -1,157 +1,166 @@
 {
   "face-comparison": [
     "/assets/css/8464bd4.css",
-    "/assets/js/8a364ed.js"
+    "/assets/js/9b32999.js"
   ],
-  "fonts/face-comparison": [
+  "models": [
+    "/assets/css/56b966f.css",
+    "/assets/js/76060c4.js"
+  ],
+  "vendors~models": [
+    "/assets/css/2.6669a1c.css",
+    "/assets/js/2.0a43998.js"
+  ],
+  "fonts/models": [
     "/assets/fonts/1dd56b1.woff2",
     "/assets/fonts/48d8f73.woff",
     "/assets/fonts/9c9dc94.woff2",
     "/assets/fonts/b4d7087.woff"
   ],
-  "images/amy/amy_3.png": [
-    "/assets/images/amy/49756a5.png"
+  "images/raj_4.png": [
+    "/assets/images/021b834.png"
   ],
-  "images/amy/amy_5.png": [
-    "/assets/images/amy/9b54648.png"
+  "images/penny_4.png": [
+    "/assets/images/04a0a59.png"
   ],
-  "images/amy/amy_2.png": [
-    "/assets/images/amy/c3ad8c0.png"
+  "images/leonard_4.png": [
+    "/assets/images/0692bbc.png"
   ],
-  "images/amy/amy_1.png": [
-    "/assets/images/amy/ea8453a.png"
+  "images/stuart_1.png": [
+    "/assets/images/0b3d9b7.png"
   ],
-  "images/amy/amy_4.png": [
-    "/assets/images/amy/f50ba15.png"
+  "images/leonard_3.png": [
+    "/assets/images/0d24f43.png"
   ],
-  "images/benedict_cumberbatch/benedict_cumberbatch_1.png": [
-    "/assets/images/benedict_cumberbatch/09ce297.png"
+  "images/howard_5.png": [
+    "/assets/images/0e2475a.png"
   ],
-  "images/benedict_cumberbatch/benedict_cumberbatch_2.png": [
-    "/assets/images/benedict_cumberbatch/55782ce.png"
+  "images/howard_4.png": [
+    "/assets/images/15536fd.png"
   ],
-  "images/benedict_cumberbatch/benedict_cumberbatch_3.png": [
-    "/assets/images/benedict_cumberbatch/acfd7d3.png"
+  "images/penny_2.png": [
+    "/assets/images/1a8d069.png"
   ],
-  "images/benedict_cumberbatch/benedict_cumberbatch_4.png": [
-    "/assets/images/benedict_cumberbatch/be1bb7c.png"
+  "images/howard_1.png": [
+    "/assets/images/2dc0da0.png"
   ],
-  "images/benedict_cumberbatch/benedict_cumberbatch_5.png": [
-    "/assets/images/benedict_cumberbatch/cfaa1f9.png"
+  "images/stuart_4.png": [
+    "/assets/images/2dcb208.png"
   ],
-  "images/bernadette/bernadette_1.png": [
-    "/assets/images/bernadette/4515d87.png"
+  "images/penny_1.png": [
+    "/assets/images/2e7ec1e.png"
   ],
-  "images/bernadette/bernadette_2.png": [
-    "/assets/images/bernadette/7caa34a.png"
+  "images/howard_2.png": [
+    "/assets/images/3592461.png"
   ],
-  "images/bernadette/bernadette_4.png": [
-    "/assets/images/bernadette/ba27ff7.png"
+  "images/benedict_cumberbatch_6.png": [
+    "/assets/images/367282e.png"
   ],
-  "images/bernadette/bernadette_5.png": [
-    "/assets/images/bernadette/ca56363.png"
+  "images/bernadette_1.png": [
+    "/assets/images/4515d87.png"
   ],
-  "images/bernadette/bernadette_3.png": [
-    "/assets/images/bernadette/dc07c78.png"
+  "images/amy_3.png": [
+    "/assets/images/49756a5.png"
   ],
-  "images/howard/howard_5.png": [
-    "/assets/images/howard/0e2475a.png"
+  "images/sheldon_5.png": [
+    "/assets/images/49a3efc.png"
   ],
-  "images/howard/howard_4.png": [
-    "/assets/images/howard/15536fd.png"
+  "images/benedict_cumberbatch_5.png": [
+    "/assets/images/4c6c76e.png",
+    "/assets/images/5a1cee0.png"
   ],
-  "images/howard/howard_1.png": [
-    "/assets/images/howard/2dc0da0.png"
+  "images/stuart_2.png": [
+    "/assets/images/4efc4d8.png"
   ],
-  "images/howard/howard_2.png": [
-    "/assets/images/howard/3592461.png"
+  "images/penny_3.png": [
+    "/assets/images/52cb625.png"
   ],
-  "images/howard/howard_3.png": [
-    "/assets/images/howard/aebe275.png"
+  "images/leonard_2.png": [
+    "/assets/images/553dba8.png"
   ],
-  "images/images/benedict_cumberbatch_6.png": [
-    "/assets/images/images/367282e.png"
+  "images/benedict_cumberbatch_3.png": [
+    "/assets/images/5ab0990.png"
   ],
-  "images/images/favicon.ico": [
-    "/assets/images/images/64d4a18.ico"
+  "images/raj_2.png": [
+    "/assets/images/5b539d5.png"
   ],
-  "images/images/benedict_cumberbatch_7.png": [
-    "/assets/images/images/a2d5ced.png"
+  "images/favicon.ico": [
+    "/assets/images/64d4a18.ico"
   ],
-  "images/leonard/leonard_4.png": [
-    "/assets/images/leonard/0692bbc.png"
+  "images/sheldon_2.png": [
+    "/assets/images/789a684.png"
   ],
-  "images/leonard/leonard_3.png": [
-    "/assets/images/leonard/0d24f43.png"
+  "images/stuart_3.png": [
+    "/assets/images/7986219.png"
   ],
-  "images/leonard/leonard_2.png": [
-    "/assets/images/leonard/553dba8.png"
+  "images/bernadette_2.png": [
+    "/assets/images/7caa34a.png"
   ],
-  "images/leonard/leonard_1.png": [
-    "/assets/images/leonard/9a3bcad.png"
+  "images/benedict_cumberbatch_1.png": [
+    "/assets/images/8c01125.png"
   ],
-  "images/leonard/leonard_5.png": [
-    "/assets/images/leonard/ac2ee84.png"
+  "images/leonard_1.png": [
+    "/assets/images/9a3bcad.png"
   ],
-  "images/penny/penny_4.png": [
-    "/assets/images/penny/04a0a59.png"
+  "images/amy_5.png": [
+    "/assets/images/9b54648.png"
   ],
-  "images/penny/penny_2.png": [
-    "/assets/images/penny/1a8d069.png"
+  "images/benedict_cumberbatch_7.png": [
+    "/assets/images/a2d5ced.png"
   ],
-  "images/penny/penny_1.png": [
-    "/assets/images/penny/2e7ec1e.png"
+  "images/sheldon_3.png": [
+    "/assets/images/a92d121.png"
   ],
-  "images/penny/penny_3.png": [
-    "/assets/images/penny/52cb625.png"
+  "images/leonard_5.png": [
+    "/assets/images/ac2ee84.png"
   ],
-  "images/penny/penny_5.png": [
-    "/assets/images/penny/f469bba.png"
+  "images/howard_3.png": [
+    "/assets/images/aebe275.png"
   ],
-  "images/raj/raj_4.png": [
-    "/assets/images/raj/021b834.png"
+  "images/benedict_cumberbatch_2.png": [
+    "/assets/images/b852b3a.png"
   ],
-  "images/raj/raj_2.png": [
-    "/assets/images/raj/5b539d5.png"
+  "images/bernadette_4.png": [
+    "/assets/images/ba27ff7.png"
   ],
-  "images/raj/raj_3.png": [
-    "/assets/images/raj/c0f1b28.png"
+  "images/raj_3.png": [
+    "/assets/images/c0f1b28.png"
   ],
-  "images/raj/raj_5.png": [
-    "/assets/images/raj/ed72bc9.png"
+  "images/amy_2.png": [
+    "/assets/images/c3ad8c0.png"
   ],
-  "images/raj/raj_1.png": [
-    "/assets/images/raj/fd866ec.png"
+  "images/bernadette_5.png": [
+    "/assets/images/ca56363.png"
   ],
-  "images/sheldon/sheldon_5.png": [
-    "/assets/images/sheldon/49a3efc.png"
+  "images/bernadette_3.png": [
+    "/assets/images/dc07c78.png"
   ],
-  "images/sheldon/sheldon_2.png": [
-    "/assets/images/sheldon/789a684.png"
+  "images/sheldon_1.png": [
+    "/assets/images/de793cd.png"
   ],
-  "images/sheldon/sheldon_3.png": [
-    "/assets/images/sheldon/a92d121.png"
+  "images/amy_1.png": [
+    "/assets/images/ea8453a.png"
   ],
-  "images/sheldon/sheldon_1.png": [
-    "/assets/images/sheldon/de793cd.png"
+  "images/benedict_cumberbatch_4.png": [
+    "/assets/images/ed6d169.png"
   ],
-  "images/sheldon/sheldon_4.png": [
-    "/assets/images/sheldon/fac6f09.png"
+  "images/raj_5.png": [
+    "/assets/images/ed72bc9.png"
   ],
-  "images/stuart/stuart_1.png": [
-    "/assets/images/stuart/0b3d9b7.png"
+  "images/penny_5.png": [
+    "/assets/images/f469bba.png"
   ],
-  "images/stuart/stuart_4.png": [
-    "/assets/images/stuart/2dcb208.png"
+  "images/amy_4.png": [
+    "/assets/images/f50ba15.png"
   ],
-  "images/stuart/stuart_2.png": [
-    "/assets/images/stuart/4efc4d8.png"
+  "images/stuart_5.png": [
+    "/assets/images/f942289.png"
   ],
-  "images/stuart/stuart_3.png": [
-    "/assets/images/stuart/7986219.png"
+  "images/sheldon_4.png": [
+    "/assets/images/fac6f09.png"
   ],
-  "images/stuart/stuart_5.png": [
-    "/assets/images/stuart/f942289.png"
+  "images/raj_1.png": [
+    "/assets/images/fd866ec.png"
   ],
   "weights/age_gender_model-shard1": [
     "/assets/weights/age_gender_model-shard1"

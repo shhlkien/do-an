@@ -1,0 +1,23 @@
+@import '../general/fonts';
+@import '~bulma/bulma.sass';
+@import '~cropperjs/dist/cropper.min.css';
+
+body {
+  font-family: 'Nunito', serif;
+}
+
+.help {
+  margin-bottom: 1em
+}
+
+.file {
+  margin-bottom: 1em
+}
+
+.image.selected {
+  border: 3px solid #209cee
+}
+
+.columns.is-mobile {
+  margin-top: 0
+}

@@ -4,14 +4,15 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    title Webpack - Express
-    link(rel='shortcut icon' type='image/x-icon' href='/assets/images/favicon.ico')
+    title Face recognition
+    link(rel='shortcut icon' type='image/x-icon' href='/assets/images/64d4a18.ico')
     //- for chromium api
     //- each path in fonts
     //-   link(rel='preload' href=path as='font' type=`font/${path.split('.').pop()}` crossorigin)
     each path in css
       link(rel="stylesheet" href=path)
   body
+    include navbar
     block content
     block js
     each path in js

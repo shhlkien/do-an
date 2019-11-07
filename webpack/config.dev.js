@@ -6,6 +6,7 @@ module.exports = {
   mode: 'development',
   entry: {
     'face-comparison': './src/js/face-comparison.js',
+    'models': './src/js/models.js',
   },
   output: {
     filename: 'js/[contenthash:7].js',
@@ -39,6 +40,16 @@ module.exports = {
           }
         }]
       },
+      {
+        test: /\.m?js$/,
+        // exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
     ]
   },
   plugins: [

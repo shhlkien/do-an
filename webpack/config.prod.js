@@ -10,6 +10,7 @@ module.exports = {
   mode: 'production',
   entry: {
     'face-comparison': './src/js/face-comparison.js',
+    'models': './src/js/models.js',
   },
   output: {
     filename: 'js/[contenthash:7].js',
@@ -39,7 +40,7 @@ module.exports = {
         use: [{
           loader: 'file-loader',
           options: {
-            name: 'images/[folder]/[hash:7].[ext]'
+            name: 'images/[hash:7].[ext]'
           }
         }]
       }
