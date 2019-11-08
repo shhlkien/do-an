@@ -6,7 +6,6 @@ window.addEventListener('load', () => {
 
   const editable = document.getElementById('editable');
   let selectedContainer = null;
-  let cropper;
   const options = {
     autoCropArea: .3,
     dragMode: 'move',
@@ -17,25 +16,9 @@ window.addEventListener('load', () => {
     preview: editable,
     toggleDragModeOnDblclick: false,
     viewMode: 3,
-    ready: function(e) {
-      console.log(e.type);
-    },
-    cropstart: function(e) {
-      console.log(e.type, e.detail.action);
-    },
-    cropmove: function(e) {
-      console.log(e.type, e.detail.action);
-    },
-    cropend: function(e) {
-      console.log(e.type, e.detail.action);
-    },
-    crop: function(e) {
-      console.log(e.type, e.detail);
-    },
-    zoom: function(e) {
-      console.log(e.type, e.detail.ratio);
-    }
   };
+  let cropper = new Cropper(editable, options);
+  const croppedData = [];
 
   document.addEventListener('click', function(e) {
 
@@ -49,14 +32,13 @@ window.addEventListener('load', () => {
       selectedContainer.classList.add('selected');
       editable.src = e.target.src;
 
-      cropper && cropper.destroy();
-      cropper = new Cropper(editable, options);
+      cropper.replace(e.target.src);
     }
   }, false);
 
-  const fileInput = document.querySelector('.file-input');
+  const inputFile = document.querySelector('.file-input');
   const preview = document.querySelector('.tile.is-ancestor');
-  fileInput.addEventListener('change', function() {
+  inputFile.addEventListener('change', function() {
 
     if (this.files.length > 5) {
 
@@ -64,7 +46,7 @@ window.addEventListener('load', () => {
       showNoti('Maximum is 5 images');
     }
   }, false);
-  previewUploadedImages(fileInput, preview);
+  previewUploadedImages(inputFile, preview);
 
   document.getElementById('resetBtn').addEventListener('click', (e) => {
 
@@ -79,7 +61,9 @@ window.addEventListener('load', () => {
 
     if (cropper && null !== selectedContainer) {
 
-      const canvas = cropper.getCroppedCanvas();
+      const canvas = cropper.getCroppedCanvas({ imageSmoothingQuality: 'high' });
+
+      canvas.toBlob((blob) => { croppedData.push(blob) });
       selectedContainer.querySelector('img').src = canvas.toDataURL();
     }
   }, false);
@@ -90,9 +74,17 @@ window.addEventListener('load', () => {
 
     const inputName = this.querySelector('input[name="name"]');
     const formData = new FormData();
+
     formData.append('name', inputName.value.trim());
-    for (const file of fileInput.files)
-      formData.append('models', file, file.name);
+    if (croppedData.length > 0) {
+
+      for (const blob of croppedData)
+        formData.append('models', blob, Math.random().toString(8).substr(2, 7) + '.png');
+    }
+    else {
+      for (const file of inputFile.files)
+        formData.append('models', file);
+    }
 
     fetch('/upload', {
         cache: 'no-cache',
@@ -103,12 +95,13 @@ window.addEventListener('load', () => {
       .then(res => {
         console.info(res)
         inputName.value = '';
-        fileInput.value = '';
-        showNoti('Uploaded');
+        inputFile.value = '';
+        res.ok ? showNoti('Uploaded') : showNoti('Upload failed');
       })
       .catch(console.error);
 
     cropper && cropper.destroy();
+    cropper = new Cropper(editable, options);
     removeChilds(document.querySelector('.tile.is-ancestor'));
 
   }, false);

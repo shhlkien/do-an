@@ -1,8 +1,8 @@
-const router = require('express').Router();
-const os = require('os');
 const fs = require('fs');
-const path = require('path');
 const multer = require('multer');
+const os = require('os');
+const path = require('path');
+const router = require('express').Router();
 
 const extractAssets = require('../helpers/extract-assets');
 
@@ -19,7 +19,7 @@ router
     const assets = extractAssets(res, 'models');
     res.render('models', assets);
   })
-  .get('/face-comparison', (req, res, next) => {
+  .get('/', (req, res, next) => {
 
     const assets = extractAssets(res, 'face-comparison');
     // res.sendStatus(200);
@@ -28,17 +28,15 @@ router
   })
   .post('/upload', upload.fields([
     { name: 'name', maxCount: 1 },
-    { name: 'models', maxCount: 5 }
+    { name: 'models', maxCount: 5 },
   ]), (req, res, next) => {
 
     // I assume users are friendly and native
 
     for (const file of req.files.models) {
 
-      const ext = file.mimetype.match(/(png|jpeg)/)[0];
-      const filename = Math.random().toString(16).substr(2, 7) + '.' + ext;
       const delimiter = os.platform() === 'win32' ? '\\' : '/';
-      const newPath = [file.destination, req.body.name, filename].join(delimiter);
+      const newPath = [file.destination, req.body.name, file.filename].join(delimiter);
 
       if (fs.existsSync(file.path)) {
         fs.mkdir(path.resolve('uploads', req.body.name), { mode: 766 }, (err) => {

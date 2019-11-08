@@ -22,6 +22,7 @@ app.set('view engine', 'pug');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/assets', express.static(__dirname + '/assets'));
+app.use('/model-images', express.static(__dirname + '/uploads'));
 app.use('/lib', express.static(__dirname + '/node_modules'));
 app.use('/', router);
 
