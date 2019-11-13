@@ -1,0 +1,57 @@
+@font-face {
+  font-family: 'face-recognition';
+  src: url('../../fonts/icon-fonts/face-recognition.eot?59805157#iefix') format('embedded-opentype'),
+    url('../../fonts/icon-fonts/face-recognition.woff2?59805157') format('woff2'),
+    url('../../fonts/icon-fonts/face-recognition.woff?59805157') format('woff'),
+    url('../../fonts/icon-fonts/face-recognition.ttf?59805157') format('truetype'),
+    url('../../fonts/icon-fonts/face-recognition.svg?59805157#face-recognition') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'face-recognition';
+    src: url('../font/face-recognition.svg?59805157#face-recognition') format('svg');
+  }
+}
+*/
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "face-recognition";
+  font-style: normal;
+  font-weight: normal;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+
+  font-variant: normal;
+  text-transform: none;
+
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-camera:before {
+  content: '\e800';
+}
+
+.icon-picture:before {
+  content: '\e801';
+}
+
+.icon-loading:before {
+  content: '\e838';
+}

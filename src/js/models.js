@@ -1,6 +1,6 @@
 import '../scss/test/models.scss';
 import previewUploadedImages from './preview-uploaded-image';
-import { removeChilds } from './html-element';
+import { createElement, removeChilds } from './dom';
 
 window.addEventListener('load', () => {
 
@@ -46,7 +46,7 @@ window.addEventListener('load', () => {
       showNoti('Maximum is 5 images');
     }
   }, false);
-  previewUploadedImages(inputFile, preview);
+  previewUploadedImages(inputFile, preview, previewTemplate);
 
   document.getElementById('resetBtn').addEventListener('click', (e) => {
 
@@ -72,8 +72,11 @@ window.addEventListener('load', () => {
 
     e.preventDefault();
 
+    const btnUpload = this.querySelector('.button.is-info');
     const inputName = this.querySelector('input[name="name"]');
     const formData = new FormData();
+
+    btnUpload.classList.add('is-loading');
 
     formData.append('name', inputName.value.trim());
     if (croppedData.length > 0) {
@@ -86,16 +89,18 @@ window.addEventListener('load', () => {
         formData.append('models', file);
     }
 
-    fetch('/upload', {
+    fetch('/models/upload', {
         cache: 'no-cache',
         credentials: 'same-origin',
         method: 'post',
         body: formData
       })
       .then(res => {
-        console.info(res)
+
         inputName.value = '';
         inputFile.value = '';
+        croppedData.length = 0;
+        btnUpload.classList.remove('is-loading');
         res.ok ? showNoti('Uploaded') : showNoti('Upload failed');
       })
       .catch(console.error);
@@ -113,4 +118,46 @@ function showNoti(msg) {
   noti.innerText = msg;
   noti.classList.remove('is-hidden');
   setTimeout(() => { noti.classList.add('is-hidden'); }, 2500);
+}
+
+function previewTemplate(images) {
+
+  let html = '';
+
+  switch (images.length) {
+    case 1:
+      html = appendImages(images);
+      break;
+    case 2:
+      html = appendImages([images[0]]) + appendImages([images[1]]);
+      break;
+    case 3:
+      html = appendImages([images[0]]) + appendImages([images[1]]) + appendImages([images[2]]);
+      break;
+    case 4:
+      html = appendImages([images[0], images[1]]) + appendImages([images[2], images[3]]);
+      break;
+    case 5:
+      html = appendImages([images[0], images[1]]) + appendImages([images[4]]) + appendImages([images[2], images[3]]);
+      break;
+  }
+
+  return html;
+}
+
+function appendImages(images) {
+
+  const parentDiv = createElement('div', { class: 'tile is-parent is-vertical' });
+
+  for (const image of images) {
+
+    const childDiv = createElement('div', { class: 'tile is-child' });
+    const fig = createElement('figure', { class: 'image image-preview' });
+
+    fig.appendChild(image);
+    childDiv.appendChild(fig);
+    parentDiv.appendChild(childDiv);
+  }
+
+  return parentDiv.outerHTML;
 }

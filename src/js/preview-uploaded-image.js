@@ -1,13 +1,16 @@
-import { createElement } from './html-element';
-
-export default function previewUploadedImages(inputImages, preview) {
+/**
+ * @param {HTML Element} inputImages input type file accepts images
+ * @param {HTML Element} preview element to view the uploaded images
+ * @param {function}     previewTemplate custom template to show images
+ */
+export default function previewUploadedImages(inputImages, preview, previewTemplate) {
 
   if (window.File && window.FileReader && window.FileList && window.Blob)
-    inputImages.addEventListener('change', function() { previewFiles(preview, this.files); }, false);
+    inputImages.addEventListener('change', function() { previewFiles(preview, this.files, previewTemplate) }, false);
   else console.warn('Browser does not support file api');
 }
 
-function previewFiles(preview, files) {
+function previewFiles(preview, files, previewTemplate) {
 
   if (files.length === 0) return;
 
@@ -33,46 +36,4 @@ function previewFiles(preview, files) {
       fr.readAsDataURL(file);
     }
   }
-}
-
-function previewTemplate(images) {
-
-  let html = '';
-
-  switch (images.length) {
-    case 1:
-      html = appendImages(images);
-      break;
-    case 2:
-      html = appendImages([images[0]]) + appendImages([images[1]]);
-      break;
-    case 3:
-      html = appendImages([images[0]]) + appendImages([images[1]]) + appendImages([images[2]]);
-      break;
-    case 4:
-      html = appendImages([images[0], images[1]]) + appendImages([images[2], images[3]]);
-      break;
-    case 5:
-      html = appendImages([images[0], images[1]]) + appendImages([images[4]]) + appendImages([images[2], images[3]]);
-      break;
-  }
-
-  return html;
-}
-
-function appendImages(images) {
-
-  const parentDiv = createElement('div', { class: 'tile is-parent is-vertical' });
-
-  for (const image of images) {
-
-    const childDiv = createElement('div', { class: 'tile is-child' });
-    const fig = createElement('figure', { class: 'image image-preview' });
-
-    fig.appendChild(image);
-    childDiv.appendChild(fig);
-    parentDiv.appendChild(childDiv);
-  }
-
-  return parentDiv.outerHTML;
 }

@@ -1,13 +1,54 @@
 extends layout.pug
 
+mixin picture()
+  .column.is-narrow
+    figure.image.is-relative
+      img#inputImg(src='/model-images/robert_downey_jr/5165661.png' alt='image')
+      canvas#overlay
+      .loading.is-hidden
+        .is-relative.has-text-centered.has-text-black
+          span.icon.is-size-1
+            i.icon-loading.animate-spin
+          p.is-size-5 Identifying...
+
+mixin pictureAndCam()
+  .columns
+    .column.is-offset-2
+      .buttons
+        button#stopCamera.button.is-outlined.is-info(type='button') Stop camera
+        button#takeAShot.button.is-outlined.is-info(type='button') Smile :)
+  .columns.is-centered
+    .column.is-5
+      .box
+        video#camera(autoplay)
+    .column.is-5
+      .box
+        figure.image.is-relative
+          img#inputImg
+          canvas#overlay
+          .loading.is-hidden
+            .is-relative.has-text-centered.has-text-black
+              span.icon.is-size-1
+                i.icon-loading.animate-spin
+              p.is-size-5 Identifying...
+
 block js
   script(async src='/lib/face-api.js/dist/face-api.min.js')
 
 block content
   section.section
-    .columns
-      .column
-      .column
-        figure.image
-          img#inputImg(src='/model-images/robert_jr/3711254.png' alt='image')
-          canvas#overlay
+    .columns.is-centered
+      .column.is-narrow
+        button#openCamera.button.is-outlined.is-info(type='button' data-in-use='false')
+          span.icon
+            i.icon-camera
+          span Take a shot
+        .is-inline-flex
+          .file
+            label.file-label
+              input.file-input(type='file' accept='image/*' data-in-use='false')
+              span.file-cta.button.is-outlined.is-info
+                span.file-icon
+                  i.icon-picture
+                span.file-label Upload image
+    .container

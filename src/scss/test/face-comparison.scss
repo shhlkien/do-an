@@ -1,6 +1,41 @@
 @import '../general/fonts';
+@import '../general/animation';
+@import '../general/icons';
 @import '~bulma/bulma.sass';
 
 body {
-  font-family: 'Nunito', serif;
+  font-family: 'Nunito', serif
+}
+
+.columns.is-centered {
+  margin-top: 0
+}
+
+.button:not(:last-child) {
+  margin-right: .5em
+}
+
+.image {
+  max-width: 62.5em
+}
+
+video {
+  transform: scaleX(-1);
+}
+
+.loading,
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.loading {
+  background: rgba(#fff, .4)
+}
+
+.is-relative.has-text-centered {
+  top: 40%
 }
