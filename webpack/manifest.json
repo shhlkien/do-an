@@ -1,15 +1,11 @@
 {
   "face-comparison": [
-    "/assets/css/8464bd4.css",
-    "/assets/js/9b32999.js"
+    "/assets/css/3ebf601.css",
+    "/assets/js/94825bb.js"
   ],
   "models": [
-    "/assets/css/56b966f.css",
-    "/assets/js/76060c4.js"
-  ],
-  "vendors~models": [
-    "/assets/css/2.6669a1c.css",
-    "/assets/js/2.0a43998.js"
+    "/assets/css/6ab7dac.css",
+    "/assets/js/f3c86a8.js"
   ],
   "fonts/models": [
     "/assets/fonts/1dd56b1.woff2",
@@ -17,150 +13,15 @@
     "/assets/fonts/9c9dc94.woff2",
     "/assets/fonts/b4d7087.woff"
   ],
-  "images/raj_4.png": [
-    "/assets/images/021b834.png"
-  ],
-  "images/penny_4.png": [
-    "/assets/images/04a0a59.png"
-  ],
-  "images/leonard_4.png": [
-    "/assets/images/0692bbc.png"
-  ],
-  "images/stuart_1.png": [
-    "/assets/images/0b3d9b7.png"
-  ],
-  "images/leonard_3.png": [
-    "/assets/images/0d24f43.png"
-  ],
-  "images/howard_5.png": [
-    "/assets/images/0e2475a.png"
-  ],
-  "images/howard_4.png": [
-    "/assets/images/15536fd.png"
-  ],
-  "images/penny_2.png": [
-    "/assets/images/1a8d069.png"
-  ],
-  "images/howard_1.png": [
-    "/assets/images/2dc0da0.png"
-  ],
-  "images/stuart_4.png": [
-    "/assets/images/2dcb208.png"
-  ],
-  "images/penny_1.png": [
-    "/assets/images/2e7ec1e.png"
-  ],
-  "images/howard_2.png": [
-    "/assets/images/3592461.png"
-  ],
-  "images/benedict_cumberbatch_6.png": [
-    "/assets/images/367282e.png"
-  ],
-  "images/bernadette_1.png": [
-    "/assets/images/4515d87.png"
-  ],
-  "images/amy_3.png": [
-    "/assets/images/49756a5.png"
-  ],
-  "images/sheldon_5.png": [
-    "/assets/images/49a3efc.png"
-  ],
-  "images/benedict_cumberbatch_5.png": [
-    "/assets/images/4c6c76e.png",
-    "/assets/images/5a1cee0.png"
-  ],
-  "images/stuart_2.png": [
-    "/assets/images/4efc4d8.png"
-  ],
-  "images/penny_3.png": [
-    "/assets/images/52cb625.png"
-  ],
-  "images/leonard_2.png": [
-    "/assets/images/553dba8.png"
-  ],
-  "images/benedict_cumberbatch_3.png": [
-    "/assets/images/5ab0990.png"
-  ],
-  "images/raj_2.png": [
-    "/assets/images/5b539d5.png"
+  "fonts/face-comparison": [
+    "/assets/fonts/5019035.ttf",
+    "/assets/fonts/5d0f214.woff2",
+    "/assets/fonts/bc4bc60.svg",
+    "/assets/fonts/da88aec.eot",
+    "/assets/fonts/e3b121b.woff"
   ],
   "images/favicon.ico": [
     "/assets/images/64d4a18.ico"
-  ],
-  "images/sheldon_2.png": [
-    "/assets/images/789a684.png"
-  ],
-  "images/stuart_3.png": [
-    "/assets/images/7986219.png"
-  ],
-  "images/bernadette_2.png": [
-    "/assets/images/7caa34a.png"
-  ],
-  "images/benedict_cumberbatch_1.png": [
-    "/assets/images/8c01125.png"
-  ],
-  "images/leonard_1.png": [
-    "/assets/images/9a3bcad.png"
-  ],
-  "images/amy_5.png": [
-    "/assets/images/9b54648.png"
-  ],
-  "images/benedict_cumberbatch_7.png": [
-    "/assets/images/a2d5ced.png"
-  ],
-  "images/sheldon_3.png": [
-    "/assets/images/a92d121.png"
-  ],
-  "images/leonard_5.png": [
-    "/assets/images/ac2ee84.png"
-  ],
-  "images/howard_3.png": [
-    "/assets/images/aebe275.png"
-  ],
-  "images/benedict_cumberbatch_2.png": [
-    "/assets/images/b852b3a.png"
-  ],
-  "images/bernadette_4.png": [
-    "/assets/images/ba27ff7.png"
-  ],
-  "images/raj_3.png": [
-    "/assets/images/c0f1b28.png"
-  ],
-  "images/amy_2.png": [
-    "/assets/images/c3ad8c0.png"
-  ],
-  "images/bernadette_5.png": [
-    "/assets/images/ca56363.png"
-  ],
-  "images/bernadette_3.png": [
-    "/assets/images/dc07c78.png"
-  ],
-  "images/sheldon_1.png": [
-    "/assets/images/de793cd.png"
-  ],
-  "images/amy_1.png": [
-    "/assets/images/ea8453a.png"
-  ],
-  "images/benedict_cumberbatch_4.png": [
-    "/assets/images/ed6d169.png"
-  ],
-  "images/raj_5.png": [
-    "/assets/images/ed72bc9.png"
-  ],
-  "images/penny_5.png": [
-    "/assets/images/f469bba.png"
-  ],
-  "images/amy_4.png": [
-    "/assets/images/f50ba15.png"
-  ],
-  "images/stuart_5.png": [
-    "/assets/images/f942289.png"
-  ],
-  "images/sheldon_4.png": [
-    "/assets/images/fac6f09.png"
-  ],
-  "images/raj_1.png": [
-    "/assets/images/fd866ec.png"
   ],
   "weights/age_gender_model-shard1": [
     "/assets/weights/age_gender_model-shard1"

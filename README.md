@@ -3,21 +3,22 @@
 ## Purpose
 **This project for studying purpose only**
 
-Mustering application
-
 ## Build status
-[![Build Status](https://img.shields.io/badge/build-developing-blue.svg)]()
+[![Build Status](https://img.shields.io/badge/Build%20Status-passing-brightgreen)]()
 
+## Live demo
+[Click here](https://familiar-face.herokuapp.com/)
 
 ## Screenshots
-
+![Home](screenshots/home.png)
+![Model training](screenshots/model_training.png)
 
 ## Tech/framework used
 - [face-api.js](https://justadudewhohacks.github.io/face-api.js/docs/index.html)
 
 ## Features
-- Face comparison
-- Webcam face expression recognition
+- Face recognition
+- Webcam face recognition (Capture)
 
 ### Bugs
 What are bitting your project

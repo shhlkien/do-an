@@ -1,5 +1,5 @@
 {
-  "name": "webpack-express",
+  "name": "face-recognition",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -42,5 +42,9 @@
       "node_modules/",
       "src/"
     ]
+  },
+  "engines": {
+    "node": "10.17"
   }
+
 }

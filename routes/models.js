@@ -62,13 +62,14 @@ router
     if (isEmpty(req.body.name)) hasError = true;
 
     if (!req.files.models) hasError = true;
-    for (const file of req.files.models) {
-      if (!allowedFile(file.filename) || !file.mimetype.match(/image\/(png|jpeg)/)) {
+    else
+      for (const file of req.files.models) {
+        if (!allowedFile(file.filename) || !file.mimetype.match(/image\/(png|jpeg)/)) {
 
-        fs.unlink(file.path, (err) => { console.error(err) });
-        hasError = true;
+          fs.unlink(file.path, (err) => { console.error(err) });
+          hasError = true;
+        }
       }
-    }
 
     if (hasError) return res.sendStatus(400);
 
