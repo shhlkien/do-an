@@ -1,3 +1,5 @@
+import * as faceapi from 'face-api.js';
+
 import '../images/favicon.ico';
 import '../scss/test/face-comparison.scss';
 
@@ -7,23 +9,53 @@ import { createElement, waitUntilElementExists } from './dom';
 let faceMatcher = null;
 let skip = 0;
 const camTemplate = previewCamTemplate();
+const liveCamTemplate = previewLiveCamTemplate();
 const imgTemplate = previewImgTemplate();
 const openCamera = document.getElementById('openCamera');
 const inputFile = document.querySelector('.file-input');
+const liveDetection = document.getElementById('liveDetection');
 
 window.addEventListener('load', async () => {
 
   try {
-    await faceapi.loadFaceLandmarkModel('/assets/weights');
-    await faceapi.loadFaceRecognitionModel('/assets/weights');
+    await Promise.all([
+      faceapi.loadFaceLandmarkModel('/assets/weights'),
+      faceapi.loadFaceRecognitionModel('/assets/weights')
+    ]);
   }
   catch (err) { console.error(err) }
 
   openCamera.addEventListener('click', streamWebcam, false);
-
   inputFile.addEventListener('change', streamImage, false);
-
+  liveDetection.addEventListener('click', liveStream, false);
 }, false);
+
+function liveStream() {
+
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then((stream) => {
+
+      if ('false' === this.getAttribute('data-in-use')) {
+
+        const container = document.querySelector('.container');
+        container.innerHTML = ''; // reset if image has loaded before
+        container.innerHTML = liveCamTemplate;
+
+        this.setAttribute('data-in-use', true);
+        inputFile.setAttribute('data-in-use', false);
+        openCamera.setAttribute('data-in-use', false);
+      }
+
+      const camera = document.getElementById('camera');
+      const stopCamera = document.getElementById('stopCamera');
+
+      camera.srcObject = stream;
+      camera.addEventListener('loadedmetadata', onPlay, false);
+
+      stopCamera.addEventListener('click', () => { stopWebcam(camera) }, { once: true });
+    })
+    .catch(console.error);
+}
 
 function streamImage() {
 
@@ -47,6 +79,7 @@ function streamImage() {
 
       this.setAttribute('data-in-use', true);
       openCamera.setAttribute('data-in-use', false);
+      liveDetection.setAttribute('data-in-use', false);
     }
 
     fr.addEventListener('load', async function() {
@@ -58,7 +91,7 @@ function streamImage() {
       inputFile.setAttribute('disabled', '');
       pseudoBtn.setAttribute('disabled', '');
 
-      await identify();
+      await identify(inputImg);
 
       inputFile.removeAttribute('disabled');
       pseudoBtn.removeAttribute('disabled');
@@ -73,7 +106,7 @@ function streamWebcam() {
   skip = 0;
 
   navigator.mediaDevices.getUserMedia({ video: true })
-    .then(async (stream) => {
+    .then((stream) => {
 
       if ('false' === this.getAttribute('data-in-use')) {
 
@@ -82,6 +115,7 @@ function streamWebcam() {
         container.innerHTML = camTemplate;
         this.setAttribute('data-in-use', true);
         inputFile.setAttribute('data-in-use', false);
+        liveDetection.setAttribute('data-in-use', false);
       }
 
       const camera = document.getElementById('camera');
@@ -90,7 +124,7 @@ function streamWebcam() {
       const inputImg = document.getElementById('inputImg');
 
       camera.srcObject = stream;
-      camera.addEventListener('loadmetadata', () => { camera.play() }, false);
+      camera.addEventListener('loadedmetadata', () => { camera.play() }, false);
 
       stopCamera.addEventListener('click', () => { stopWebcam(camera) }, { once: true });
 
@@ -99,12 +133,31 @@ function streamWebcam() {
         this.setAttribute('disabled', '');
 
         capture(camera, inputImg);
-        await identify();
+        await identify(inputImg);
 
         this.removeAttribute('disabled');
       }, false);
     })
     .catch(console.error);
+}
+
+function onPlay(e) {
+
+  skip = 0;
+  const overlay = document.getElementById('overlay');
+
+  if (undefined === e.target || e.target.paused || e.target.ended)
+    return setTimeout(() => onPlay(e));
+
+  e.target.play();
+  overlay.width = e.target.clientWidth;
+  overlay.height = e.target.clientHeight;
+  e.target.width = e.target.clientWidth;
+  e.target.height = e.target.clientHeight;
+
+  Promise.resolve(identify(e.target));
+
+  // setTimeout(() => onPlay(e));
 }
 
 function stopWebcam(camera) {
@@ -118,16 +171,16 @@ function stopWebcam(camera) {
 
 function capture(camera, output) {
 
-  const cameraCaptured = document.createElement('canvas');
-  const context = cameraCaptured.getContext('2d');
+  const captureFrame = document.createElement('canvas');
+  const context = captureFrame.getContext('2d');
 
-  cameraCaptured.width = camera.offsetWidth;
-  cameraCaptured.height = camera.offsetHeight;
+  captureFrame.width = camera.offsetWidth;
+  captureFrame.height = camera.offsetHeight;
   // flip the image
   context.translate(camera.offsetWidth, 0);
   context.scale(-1, 1);
   context.drawImage(camera, 0, 0, camera.offsetWidth, camera.offsetHeight);
-  cameraCaptured.toBlob((blob) => {
+  captureFrame.toBlob((blob) => {
 
     const url = URL.createObjectURL(blob);
     output.src = url;
@@ -135,33 +188,37 @@ function capture(camera, output) {
   }, 'image/jpeg', .99);
 }
 
-async function identify() {
+async function identify(input) {
 
-  const loading = document.querySelector('.loading');
+  let loading = null;
 
-  loading.classList.remove('is-hidden');
+  if (input instanceof HTMLImageElement) {
+
+    loading = document.querySelector('.loading');
+    loading.classList.remove('is-hidden');
+  }
+
   try {
     faceMatcher = await createBbtFaceMatcher(3) || faceMatcher;
-    await updateResults();
+    await updateResults(input);
     skip++;
-    loading.classList.add('is-hidden');
+    input instanceof HTMLImageElement && loading && loading.classList.add('is-hidden');
   }
   catch (err) { console.error(err) }
 }
 
-async function updateResults() {
+async function updateResults(input) {
 
-  const inputImg = document.getElementById('inputImg');
   const overlay = document.getElementById('overlay');
 
   try {
     if (!isFaceDetectionModelLoaded())
       await getCurrentFaceDetectionNet().load('/assets/weights');
 
-    const results = await faceapi.detectAllFaces(inputImg, getFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors();
-    const resizedResults = faceapi.resizeResults(results, inputImg);
+    const results = await faceapi.detectAllFaces(input, getFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors();
+    const dims = faceapi.matchDimensions(overlay, input);
+    const resizedResults = faceapi.resizeResults(results, dims);
 
-    faceapi.matchDimensions(overlay, inputImg);
     resizedResults.forEach(({ detection, descriptor }) => {
 
       const label = faceMatcher.findBestMatch(descriptor).toString();
@@ -173,13 +230,13 @@ async function updateResults() {
       drawBox.draw(overlay);
     });
   }
-  catch (err) { console.error(err); }
+  catch (err) { console.error(err) }
 }
 
-async function createBbtFaceMatcher(numImagesForTraining = 1) {
+async function createBbtFaceMatcher(comparativeLimit = 1) {
 
   try {
-    numImagesForTraining = Math.min(numImagesForTraining, 5);
+    comparativeLimit = Math.min(comparativeLimit, 5);
 
     let params = new URLSearchParams({ skip: skip, type: 'name', }).toString();
     const people = await fetch('/models/fetch?' + params).then(res => res.json());
@@ -191,7 +248,7 @@ async function createBbtFaceMatcher(numImagesForTraining = 1) {
 
         const descriptors = [];
         params = new URLSearchParams({
-          limit: numImagesForTraining,
+          limit: comparativeLimit,
           name: person.name,
           skip: skip,
           type: 'models',
@@ -246,9 +303,9 @@ function previewImgTemplate() {
 
 function previewCamTemplate() {
 
-  const row1 = createElement('div', { class: 'columns' });
+  const row1 = createElement('div', { class: 'columns is-centered' });
   const row2 = createElement('div', { class: 'columns is-centered' });
-  const columnRow1 = createElement('div', { class: 'column is-offset-2' });
+  const columnRow1 = createElement('div', { class: 'column is-narrow' });
   const buttons = createElement('div', { class: 'buttons' });
   const btnStopCam = createElement('button', { class: 'button is-outlined is-info', type: 'button', id: 'stopCamera' });
   const btnTakePhoto = createElement('button', { class: 'button is-outlined is-info', type: 'button', id: 'takeAShot' });
@@ -259,8 +316,7 @@ function previewCamTemplate() {
 
   btnStopCam.innerText = 'Stop camera';
   btnTakePhoto.innerText = 'Smile :)';
-  buttons.appendChild(btnStopCam);
-  buttons.appendChild(btnTakePhoto);
+  buttons.append(btnStopCam, btnTakePhoto);
   columnRow1.appendChild(buttons);
   row1.appendChild(columnRow1);
 
@@ -268,6 +324,28 @@ function previewCamTemplate() {
   columnVideo.appendChild(boxVideo);
   row2.appendChild(columnVideo);
   row2.insertAdjacentHTML('beforeend', columnImg);
+
+  return row1.outerHTML + row2.outerHTML;
+}
+
+function previewLiveCamTemplate() {
+
+  const row1 = createElement('div', { class: 'columns is-centered' });
+  const row2 = createElement('div', { class: 'columns is-centered' });
+  const columnBtn = createElement('div', { class: 'column is-narrow' });
+  const columnVideo = createElement('div', { class: 'column is-narrow' });
+  const btnStopCam = createElement('button', { class: 'button is-outlined is-info', type: 'button', id: 'stopCamera' });
+  const box = createElement('div', { class: 'box is-relative' });
+  const video = createElement('video', { id: 'camera', autoplay: 'autoplay' });
+  const canvas = createElement('canvas', { id: 'overlay' });
+
+  btnStopCam.innerText = 'Stop camera';
+  columnBtn.appendChild(btnStopCam);
+  row1.appendChild(columnBtn);
+
+  box.append(video, canvas);
+  columnVideo.appendChild(box);
+  row2.appendChild(columnVideo);
 
   return row1.outerHTML + row2.outerHTML;
 }

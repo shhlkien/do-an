@@ -32,9 +32,6 @@ mixin pictureAndCam()
                 i.icon-loading.animate-spin
               p.is-size-5 Identifying...
 
-block js
-  script(async src='/lib/face-api.js/dist/face-api.min.js')
-
 block content
   section.section
     .columns.is-centered
@@ -51,4 +48,8 @@ block content
                 span.file-icon
                   i.icon-picture
                 span.file-label Upload image
+        button#liveDetection.button.is-outlined.is-info(type='button' data-in-use='false')
+          span.icon
+            i.icon-videocam
+          span Live detection
     .container

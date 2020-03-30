@@ -1,11 +1,17 @@
 {
   "face-comparison": [
-    "/assets/css/3ebf601.css",
-    "/assets/js/94825bb.js"
+    "/assets/css/c054ec1.css",
+    "/assets/js/e312fb0.js"
   ],
   "models": [
-    "/assets/css/6ab7dac.css",
-    "/assets/js/f3c86a8.js"
+    "/assets/css/d77f379.css",
+    "/assets/js/f72621e.js"
+  ],
+  "css/c054ec1.css.gz": [
+    "/assets/css/c054ec1.css.gz"
+  ],
+  "css/d77f379.css.gz": [
+    "/assets/css/d77f379.css.gz"
   ],
   "fonts/models": [
     "/assets/fonts/1dd56b1.woff2",
@@ -20,8 +26,26 @@
     "/assets/fonts/da88aec.eot",
     "/assets/fonts/e3b121b.woff"
   ],
+  "fonts/5019035.ttf.gz": [
+    "/assets/fonts/5019035.ttf.gz"
+  ],
+  "fonts/bc4bc60.svg.gz": [
+    "/assets/fonts/bc4bc60.svg.gz"
+  ],
+  "fonts/da88aec.eot.gz": [
+    "/assets/fonts/da88aec.eot.gz"
+  ],
   "images/favicon.ico": [
     "/assets/images/64d4a18.ico"
+  ],
+  "images/64d4a18.ico.gz": [
+    "/assets/images/64d4a18.ico.gz"
+  ],
+  "js/e312fb0.js.gz": [
+    "/assets/js/e312fb0.js.gz"
+  ],
+  "js/f72621e.js.gz": [
+    "/assets/js/f72621e.js.gz"
   ],
   "weights/age_gender_model-shard1": [
     "/assets/weights/age_gender_model-shard1"
@@ -29,11 +53,17 @@
   "weights/age_gender_model-weights_manifest.json": [
     "/assets/weights/age_gender_model-weights_manifest.json"
   ],
+  "weights/age_gender_model-weights_manifest.json.gz": [
+    "/assets/weights/age_gender_model-weights_manifest.json.gz"
+  ],
   "weights/face_expression_model-shard1": [
     "/assets/weights/face_expression_model-shard1"
   ],
   "weights/face_expression_model-weights_manifest.json": [
     "/assets/weights/face_expression_model-weights_manifest.json"
+  ],
+  "weights/face_expression_model-weights_manifest.json.gz": [
+    "/assets/weights/face_expression_model-weights_manifest.json.gz"
   ],
   "weights/face_landmark_68_model-shard1": [
     "/assets/weights/face_landmark_68_model-shard1"
@@ -41,20 +71,35 @@
   "weights/face_landmark_68_model-weights_manifest.json": [
     "/assets/weights/face_landmark_68_model-weights_manifest.json"
   ],
+  "weights/face_landmark_68_model-weights_manifest.json.gz": [
+    "/assets/weights/face_landmark_68_model-weights_manifest.json.gz"
+  ],
   "weights/face_landmark_68_tiny_model-shard1": [
     "/assets/weights/face_landmark_68_tiny_model-shard1"
   ],
   "weights/face_landmark_68_tiny_model-weights_manifest.json": [
     "/assets/weights/face_landmark_68_tiny_model-weights_manifest.json"
   ],
+  "weights/face_landmark_68_tiny_model-weights_manifest.json.gz": [
+    "/assets/weights/face_landmark_68_tiny_model-weights_manifest.json.gz"
+  ],
   "weights/face_recognition_model-shard1": [
     "/assets/weights/face_recognition_model-shard1"
+  ],
+  "weights/face_recognition_model-shard1.gz": [
+    "/assets/weights/face_recognition_model-shard1.gz"
   ],
   "weights/face_recognition_model-shard2": [
     "/assets/weights/face_recognition_model-shard2"
   ],
+  "weights/face_recognition_model-shard2.gz": [
+    "/assets/weights/face_recognition_model-shard2.gz"
+  ],
   "weights/face_recognition_model-weights_manifest.json": [
     "/assets/weights/face_recognition_model-weights_manifest.json"
+  ],
+  "weights/face_recognition_model-weights_manifest.json.gz": [
+    "/assets/weights/face_recognition_model-weights_manifest.json.gz"
   ],
   "weights/mtcnn_model-shard1": [
     "/assets/weights/mtcnn_model-shard1"
@@ -62,19 +107,34 @@
   "weights/mtcnn_model-weights_manifest.json": [
     "/assets/weights/mtcnn_model-weights_manifest.json"
   ],
+  "weights/mtcnn_model-weights_manifest.json.gz": [
+    "/assets/weights/mtcnn_model-weights_manifest.json.gz"
+  ],
   "weights/ssd_mobilenetv1_model-shard1": [
     "/assets/weights/ssd_mobilenetv1_model-shard1"
+  ],
+  "weights/ssd_mobilenetv1_model-shard1.gz": [
+    "/assets/weights/ssd_mobilenetv1_model-shard1.gz"
   ],
   "weights/ssd_mobilenetv1_model-shard2": [
     "/assets/weights/ssd_mobilenetv1_model-shard2"
   ],
+  "weights/ssd_mobilenetv1_model-shard2.gz": [
+    "/assets/weights/ssd_mobilenetv1_model-shard2.gz"
+  ],
   "weights/ssd_mobilenetv1_model-weights_manifest.json": [
     "/assets/weights/ssd_mobilenetv1_model-weights_manifest.json"
+  ],
+  "weights/ssd_mobilenetv1_model-weights_manifest.json.gz": [
+    "/assets/weights/ssd_mobilenetv1_model-weights_manifest.json.gz"
   ],
   "weights/tiny_face_detector_model-shard1": [
     "/assets/weights/tiny_face_detector_model-shard1"
   ],
   "weights/tiny_face_detector_model-weights_manifest.json": [
     "/assets/weights/tiny_face_detector_model-weights_manifest.json"
+  ],
+  "weights/tiny_face_detector_model-weights_manifest.json.gz": [
+    "/assets/weights/tiny_face_detector_model-weights_manifest.json.gz"
   ]
 }

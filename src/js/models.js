@@ -1,3 +1,5 @@
+import Cropper from 'cropperjs';
+
 import '../scss/test/models.scss';
 import previewUploadedImages from './preview-uploaded-image';
 import { createElement, removeChilds } from './dom';

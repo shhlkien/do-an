@@ -1,7 +1,9 @@
+import * as faceapi from 'face-api.js';
+
 const SSD_MOBILENETV1 = 'ssd_mobilenetv1';
 const TINY_FACE_DETECTOR = 'tiny_face_detector';
 const MTCNN = 'mtcnn';
-export let faceDetector = SSD_MOBILENETV1;
+export let faceDetector = TINY_FACE_DETECTOR;
 
 export function isFaceDetectionModelLoaded() { return !!getCurrentFaceDetectionNet().params }
 

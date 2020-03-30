@@ -49,7 +49,7 @@ router
   })
   .get('/', (req, res, next) => {
 
-    const assets = extractAssets(res, 'models');
+    const assets = extractAssets(res, 'models', 'vendors~models');
     res.render('models', assets);
   })
   .post('/upload', upload.fields([

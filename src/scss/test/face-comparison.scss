@@ -11,7 +11,7 @@ body {
   margin-top: 0
 }
 
-.button:not(:last-child) {
+.column.is-narrow> :not(last-child) {
   margin-right: .5em
 }
 
@@ -30,6 +30,11 @@ canvas {
   left: 0;
   bottom: 0;
   right: 0;
+}
+
+.box.is-relative canvas {
+  top: $box-padding;
+  left: $box-padding;
 }
 
 .loading {
