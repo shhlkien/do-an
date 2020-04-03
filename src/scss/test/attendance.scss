@@ -1,0 +1,42 @@
+@import '../general/fonts';
+@import '../general/animation.css';
+@import '../general/icons.css';
+@import '~bulma/bulma';
+
+body {
+  padding-top: $navbar-height;
+}
+
+.container.is-fluid {
+  margin-top: 1.5em;
+}
+
+.hero-body {
+  padding: 1.5rem;
+}
+
+video {
+  transform: scaleX(-1);
+}
+
+.box.is-relative canvas {
+  top: $box-padding;
+  left: $box-padding;
+}
+
+.loading,
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.loading {
+  background: rgba(#fff, .4)
+}
+
+.is-relative.has-text-centered {
+  top: 40%
+}

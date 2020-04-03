@@ -1,8 +1,8 @@
-import * as faceapi from 'face-api.js';
-
 import '../images/favicon.ico';
-import '../scss/test/face-comparison.scss';
+import '../scss/test/attendance.scss';
 
+import * as faceapi from 'face-api.js';
+// import ajax from './ajax';
 import { getCurrentFaceDetectionNet, getFaceDetectorOptions, isFaceDetectionModelLoaded } from './face-detection-instance';
 import { createElement, waitUntilElementExists } from './dom';
 
@@ -37,7 +37,7 @@ function liveStream() {
 
       if ('false' === this.getAttribute('data-in-use')) {
 
-        const container = document.querySelector('.container');
+        const container = document.getElementById('detectionContainer');
         container.innerHTML = ''; // reset if image has loaded before
         container.innerHTML = liveCamTemplate;
 
@@ -70,7 +70,7 @@ function streamImage() {
 
     if ('false' === this.getAttribute('data-in-use')) {
 
-      const container = document.querySelector('.container');
+      const container = document.getElementById('detectionContainer');
       const row = createElement('div', { class: 'columns is-centered' });
 
       row.innerHTML = imgTemplate;
@@ -110,7 +110,7 @@ function streamWebcam() {
 
       if ('false' === this.getAttribute('data-in-use')) {
 
-        const container = document.querySelector('.container');
+        const container = document.getElementById('detectionContainer');
         container.innerHTML = ''; // reset if image has loaded before
         container.innerHTML = camTemplate;
         this.setAttribute('data-in-use', true);
@@ -274,7 +274,6 @@ async function createBbtFaceMatcher(comparativeLimit = 1) {
 
 function previewImgTemplate() {
 
-  const columnDiv = createElement('div', { class: 'column is-narrow' });
   const boxDiv = createElement('div', { class: 'box' });
   const fig = createElement('figure', { class: 'image is-relative' });
   const canvas = createElement('canvas', { id: 'overlay' });
@@ -285,7 +284,7 @@ function previewImgTemplate() {
   const i = createElement('i', { class: 'icon-loading animate-spin' });
   const p = createElement('p', { class: 'is-size-5' });
 
-  p.innerText = 'Identifying...';
+  p.innerText = 'Đang nhận diện...';
   spanIcon.appendChild(i);
   childDiv.appendChild(spanIcon);
   childDiv.appendChild(p);
@@ -296,56 +295,47 @@ function previewImgTemplate() {
   fig.appendChild(loadingDiv);
 
   boxDiv.appendChild(fig);
-  columnDiv.appendChild(boxDiv);
 
-  return columnDiv.outerHTML;
+  return boxDiv.outerHTML;
 }
 
 function previewCamTemplate() {
 
   const row1 = createElement('div', { class: 'columns is-centered' });
-  const row2 = createElement('div', { class: 'columns is-centered' });
   const columnRow1 = createElement('div', { class: 'column is-narrow' });
   const buttons = createElement('div', { class: 'buttons' });
   const btnStopCam = createElement('button', { class: 'button is-outlined is-info', type: 'button', id: 'stopCamera' });
   const btnTakePhoto = createElement('button', { class: 'button is-outlined is-info', type: 'button', id: 'takeAShot' });
-  const columnVideo = createElement('div', { class: 'column is-5' });
   const boxVideo = createElement('div', { class: 'box' });
   const video = createElement('video', { id: 'camera', autoplay: 'autoplay' });
   const columnImg = previewImgTemplate();
 
-  btnStopCam.innerText = 'Stop camera';
-  btnTakePhoto.innerText = 'Smile :)';
+  btnStopCam.innerText = 'Dừng quay';
+  btnTakePhoto.innerText = 'Cười lên :)';
   buttons.append(btnStopCam, btnTakePhoto);
   columnRow1.appendChild(buttons);
   row1.appendChild(columnRow1);
 
   boxVideo.appendChild(video);
-  columnVideo.appendChild(boxVideo);
-  row2.appendChild(columnVideo);
-  row2.insertAdjacentHTML('beforeend', columnImg);
+  boxVideo.insertAdjacentHTML('beforeend', columnImg);
 
-  return row1.outerHTML + row2.outerHTML;
+  return row1.outerHTML + boxVideo.outerHTML;
 }
 
 function previewLiveCamTemplate() {
 
   const row1 = createElement('div', { class: 'columns is-centered' });
-  const row2 = createElement('div', { class: 'columns is-centered' });
   const columnBtn = createElement('div', { class: 'column is-narrow' });
-  const columnVideo = createElement('div', { class: 'column is-narrow' });
   const btnStopCam = createElement('button', { class: 'button is-outlined is-info', type: 'button', id: 'stopCamera' });
   const box = createElement('div', { class: 'box is-relative' });
   const video = createElement('video', { id: 'camera', autoplay: 'autoplay' });
   const canvas = createElement('canvas', { id: 'overlay' });
 
-  btnStopCam.innerText = 'Stop camera';
+  btnStopCam.innerText = 'Dừng quay';
   columnBtn.appendChild(btnStopCam);
   row1.appendChild(columnBtn);
 
   box.append(video, canvas);
-  columnVideo.appendChild(box);
-  row2.appendChild(columnVideo);
 
-  return row1.outerHTML + row2.outerHTML;
+  return row1.outerHTML + box.outerHTML;
 }

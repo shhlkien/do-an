@@ -1,0 +1,27 @@
+@import '../general/fonts';
+@import '~bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/base/_all.sass';
+@import '~bulma/sass/form/_all.sass';
+@import '~bulma/sass/elements/button.sass';
+@import '~bulma/sass/grid/columns.sass';
+@import '~bulma/sass/elements/box.sass';
+
+body {
+  font-family: 'Nunito', serif
+}
+
+nav {
+  display: none;
+}
+
+.container.has-background-info {
+  height: 100vh;
+}
+
+.columns.is-vcentered {
+  height: 100%;
+}
+
+.box {
+  box-shadow: .5em .5em 1em #000000ad;
+}

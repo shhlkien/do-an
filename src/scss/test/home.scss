@@ -1,0 +1,29 @@
+@import '../general/fonts';
+@import '../general/icons.css';
+@import '~bulma/bulma';
+
+body {
+  padding-top: $navbar-height;
+}
+
+.container.is-fluid {
+  margin-top: 1.5em;
+}
+
+.card {
+  box-shadow: 0.3em 0.3em .8em rgba(10, 10, 10, 0.43), 0 0px 0 1px rgba(10, 10, 10, 0.02)
+}
+
+.button.is-rounded.is-info {
+  position: fixed;
+  bottom: 1.5em;
+  right: 1em;
+  width: 2em;
+  box-shadow: .3em .3em .5em #353535c4;
+  transform: rotate(45deg);
+}
+
+.modal-content {
+  width: auto;
+  max-width: 21rem;
+}

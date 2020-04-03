@@ -2,26 +2,24 @@
   font-family: 'face-recognition';
   font-weight: normal;
   font-style: normal;
-  src: url('../../fonts/icon-fonts/face-recognition.eot?84528399#iefix') format('embedded-opentype'),
-    url('../../fonts/icon-fonts/face-recognition.woff2?84528399') format('woff2'),
-    url('../../fonts/icon-fonts/face-recognition.woff?84528399') format('woff'),
-    url('../../fonts/icon-fonts/face-recognition.ttf?84528399') format('truetype'),
-    url('../../fonts/icon-fonts/face-recognition.svg?84528399#face-recognition') format('svg');
+  src: url('../../fonts/icon-fonts/face-recognition.eot?90134985#iefix') format('embedded-opentype'),
+       url('../../fonts/icon-fonts/face-recognition.woff2?90134985') format('woff2'),
+       url('../../fonts/icon-fonts/face-recognition.woff?90134985') format('woff'),
+       url('../../fonts/icon-fonts/face-recognition.ttf?90134985') format('truetype'),
+       url('../../fonts/icon-fonts/face-recognition.svg?90134985#face-recognition') format('svg');
 }
-
 /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
 /* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'face-recognition';
-    src: url('../font/face-recognition.svg?84528399#face-recognition') format('svg');
+    src: url('../../fonts/icon-fonts/face-recognition.svg?90134985#face-recognition') format('svg');
   }
 }
 */
 
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
+ [class^="icon-"]:before, [class*=" icon-"]:before {
   font-family: "face-recognition";
   font-style: normal;
   font-weight: normal;
@@ -56,23 +54,9 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.icon-camera:before {
-  content: '\e800';
-}
-
-/* '' */
-.icon-picture:before {
-  content: '\e801';
-}
-
-/* '' */
-.icon-videocam:before {
-  content: '\e802';
-}
-
-/* '' */
-.icon-loading:before {
-  content: '\e838';
-}
-
-/* '' */
+.icon-ok:before { content: '\e800'; } /* '' */
+.icon-not-ok:before { content: '\e801'; } /* '' */
+.icon-camera:before { content: '\e802'; } /* '' */
+.icon-picture:before { content: '\e803'; } /* '' */
+.icon-videocam:before { content: '\e804'; } /* '' */
+.icon-loading:before { content: '\e838'; } /* '' */

@@ -5,8 +5,10 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: {
-    'face-comparison': './src/js/face-comparison.js',
-    'models': './src/js/models.js',
+    login: './src/js/login.js',
+    home: './src/js/home.js',
+    attendance: './src/js/attendance.js',
+    admin: './src/js/admin.js',
   },
   output: {
     filename: 'js/[contenthash:7].js',

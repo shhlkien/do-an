@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  .container.has-background-info
+    .columns.is-vcentered
+      .column.is-4.is-offset-4
+        form.box(method='post' action='/auth')
+          input(type='hidden' name='action' value='login')
+          .field
+            label.label Email
+            .control
+              input.input.is-info(type='text' placeholder='Email' name='username' autofocus)
+          .field
+            label.label Mật khẩu
+            .control
+              input.input.is-info(type='password' placeholder='Mật khẩu' name='password')
+          .field.is-clearfix
+            button.button.is-info.is-pulled-right(type='submit') Đăng nhập

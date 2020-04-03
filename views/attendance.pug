@@ -1,0 +1,80 @@
+extends layout
+
+mixin picture()
+  .column.is-narrow
+    figure.image.is-relative
+      img#inputImg(src='/model-images/robert_downey_jr/5165661.png' alt='image')
+      canvas#overlay
+      .loading.is-hidden
+        .is-relative.has-text-centered.has-text-black
+          span.icon.is-size-1
+            i.icon-loading.animate-spin
+          p.is-size-5 Đang nhận diện...
+
+mixin pictureAndCam()
+  .columns
+    .column.is-offset-2
+      .buttons
+        button#stopCamera.button.is-outlined.is-info(type='button') Stop camera
+        button#takeAShot.button.is-outlined.is-info(type='button') Smile :)
+  .columns.is-centered
+    .column.is-5
+      .box
+        video#camera(autoplay)
+    .column.is-5
+      .box
+        figure.image.is-relative
+          img#inputImg
+          canvas#overlay
+          .loading.is-hidden
+            .is-relative.has-text-centered.has-text-black
+              span.icon.is-size-1
+                i.icon-loading.animate-spin
+              p.is-size-5 Đang nhận diện...
+
+block content
+  section.hero.is-info
+    .hero-body
+      .container
+        h2.title= classDetail.subject.name
+        h3.subtitle Mã lớp: #{classDetail.name}
+  .container.is-fluid
+    .columns
+      .column
+        .columns.is-centered
+          .column.is-narrow
+            .field.has-addons
+              .control
+                button#openCamera.button.is-outlined.is-info(type='button' data-in-use='false')
+                  span.icon
+                    i.icon-camera
+                  span Chụp ảnh
+              .control
+                .file
+                  label.file-label
+                    input.file-input(type='file' accept='image/*' data-in-use='false')
+                    span.file-cta.button.is-outlined.is-info
+                      span.file-icon
+                        i.icon-picture
+                      span.file-label Tải ảnh lên
+              .control
+                button#liveDetection.button.is-outlined.is-info(type='button' data-in-use='false')
+                  span.icon
+                    i.icon-videocam
+                  span Phát hiện trực tiếp
+        .container#detectionContainer
+      .column
+        table.table.is-striped.is-fullwidth.is-bordered
+          thead.thead
+            tr
+              th.has-text-centered Mã sinh viên
+              th.has-text-centered Họ tên
+              th.has-text-centered Điểm danh
+          tbody.tbody
+            each student in classDetail.students
+              tr
+                td= student.id
+                td= student.name
+                td.has-text-centered
+                  //- span.icon.has-text-info
+                  //-   i.icon-ok
