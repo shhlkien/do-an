@@ -16,15 +16,34 @@ block content
                 p.subtitle.is-6 Mã học phần: #{_class.subject.id}
                 p.subtitle.is-6 Mã lớp: #{_class.name}
             .card-footer
-              a.card-footer-item(href='/attendance/' + _class._id) Chi tiết
+              a.card-footer-item(href='/attendance/' + _class._id download) Tải danh sách điểm danh
               a.card-footer-item(href='/attendance/' + _class._id + '/today') Điểm danh
   button#addClass.button.is-rounded.is-info(title='Thêm lớp')
     span.icon
       i.icon-not-ok
+
   .modal
     .modal-background
     .modal-content
-      form.box.is-clearfix(method='post' action='/class')
+      form#downloadForm.box.is-clearfix
+        .field
+          label.label Từ ngày
+          .control
+            input#from.input(type='text')
+        .field
+          label.label Đến ngày
+          .control
+            input#to.input(type='text')
+        .field.is-grouped.is-pulled-right
+          .control
+            button.button.is-info(type='submit') Tải xuống
+          .control
+            button.btnCancel.button(type='button') Hủy
+
+  .modal
+    .modal-background
+    .modal-content
+      form#uploadForm.box.is-clearfix(method='post' action='/class')
         .field
           label.label Nhập danh sách lớp từ Excel
           .control
@@ -39,4 +58,4 @@ block content
           .control
             button.button.is-info(type='submit') Nhập
           .control
-            button#btnCancel.button(type='button') Hủy
+            button.btnCancel.button(type='button') Hủy

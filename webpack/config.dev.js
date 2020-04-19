@@ -1,14 +1,14 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 module.exports = {
   mode: 'development',
   entry: {
-    login: './src/js/login.js',
-    home: './src/js/home.js',
-    attendance: './src/js/attendance.js',
     admin: './src/js/admin.js',
+    attendance: './src/js/attendance.js',
+    home: './src/js/home.js',
+    login: './src/js/login.js',
+    models: './src/js/models.js',
   },
   output: {
     filename: 'js/[contenthash:7].js',
@@ -46,13 +46,13 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: 'css/[contenthash:7].css' }),
-    new CopyWebpackPlugin([
-      { from: 'src/models/weights', to: 'weights/' }
-    ]),
   ],
   optimization: {
     splitChunks: {
       chunks: 'all'
     },
+  },
+  node: {
+    fs: "empty"
   }
 };

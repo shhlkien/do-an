@@ -1,6 +1,7 @@
 @import '../general/fonts';
 @import '../general/icons.css';
 @import '~bulma/bulma';
+@import '~datepickerx/dist/css/DatePickerX.min.css';
 
 body {
   padding-top: $navbar-height;
@@ -12,6 +13,11 @@ body {
 
 .card {
   box-shadow: 0.3em 0.3em .8em rgba(10, 10, 10, 0.43), 0 0px 0 1px rgba(10, 10, 10, 0.02)
+}
+
+.card-footer-item:hover {
+  transition: .3s;
+  box-shadow: 0 3px 3px #e4e4e4 inset;
 }
 
 .button.is-rounded.is-info {

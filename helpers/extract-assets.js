@@ -13,7 +13,7 @@ module.exports = (res, ...entries) => {
     css = [],
     js = [],
     asset = null;
-  console.log(`extract-assets.js:16: `, assets)
+  // console.log(`extract-assets.js:16: `, assets)
 
   for (let i = entries.length; --i >= 0;) {
 

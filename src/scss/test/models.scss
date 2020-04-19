@@ -1,5 +1,6 @@
 @import '../general/fonts';
-@import '~bulma/bulma.sass';
+@import '../general/icons.css';
+@import '~bulma/bulma';
 @import '~cropperjs/dist/cropper.min.css';
 
 body {
@@ -20,4 +21,25 @@ body {
 
 .columns.is-mobile {
   margin-top: 0
+}
+
+.button.is-rounded.is-info {
+  position: fixed;
+  bottom: 1.5em;
+  right: 1em;
+  width: 2em;
+  box-shadow: .3em .3em .5em #353535c4;
+  transform: rotate(45deg);
+}
+
+.modal-card-body.is-flex {
+  justify-content: center;
+}
+
+.tile.is-ancestor {
+  margin-top: 1em;
+}
+
+.field.is-horizontal {
+  align-items: center;
 }

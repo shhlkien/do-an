@@ -6,7 +6,7 @@ const attendanceSchema = new Schema({
   students: [{
     id: { type: String, required: true },
     name: { type: String, required: true },
-    isAbsent: { type: Boolean, default: false }
+    isAbsent: { type: Boolean, default: true }
   }]
 });
 

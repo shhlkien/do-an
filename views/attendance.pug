@@ -36,6 +36,7 @@ block content
   section.hero.is-info
     .hero-body
       .container
+        input#classId(type='hidden' value=classDetail._id)
         h2.title= classDetail.subject.name
         h3.subtitle Mã lớp: #{classDetail.name}
   .container.is-fluid
@@ -75,6 +76,6 @@ block content
               tr
                 td= student.id
                 td= student.name
-                td.has-text-centered
+                td.has-text-centered(id=student._id)
                   //- span.icon.has-text-info
                   //-   i.icon-ok

@@ -1,8 +1,8 @@
 import Cropper from 'cropperjs';
 
 import '../scss/test/models.scss';
-import previewUploadedImages from './preview-uploaded-image';
 import { createElement, removeChilds } from './dom';
+import previewUploadedImages from './preview-uploaded-image';
 
 window.addEventListener('load', () => {
 
@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
     minContainerHeight: 500,
     preview: editable,
     toggleDragModeOnDblclick: false,
-    viewMode: 3,
+    viewMode: 2,
   };
   let cropper = new Cropper(editable, options);
   const croppedData = [];
@@ -35,6 +35,15 @@ window.addEventListener('load', () => {
       editable.src = e.target.src;
 
       cropper.replace(e.target.src);
+    }
+    else if (null !== e.target.closest('.fillToForm')) {
+
+      const student = JSON.parse(e.target.closest('.fillToForm').getAttribute('data-student'));
+
+      document.getElementById('student_id').value = student._id;
+      document.getElementById('studentId').value = student.id;
+      document.getElementById('studentName').value = student.name;
+      document.querySelector('.modal').classList.remove('is-active');
     }
   }, false);
 
@@ -75,12 +84,11 @@ window.addEventListener('load', () => {
     e.preventDefault();
 
     const btnUpload = this.querySelector('.button.is-info');
-    const inputName = this.querySelector('input[name="name"]');
+    const studentId = document.getElementById('student_id');
     const formData = new FormData();
 
     btnUpload.classList.add('is-loading');
 
-    formData.append('name', inputName.value.trim());
     if (croppedData.length > 0) {
 
       for (const blob of croppedData)
@@ -91,7 +99,7 @@ window.addEventListener('load', () => {
         formData.append('models', file);
     }
 
-    fetch('/models/upload', {
+    fetch('/student/' + studentId.value, {
         cache: 'no-cache',
         credentials: 'same-origin',
         method: 'post',
@@ -99,11 +107,10 @@ window.addEventListener('load', () => {
       })
       .then(res => {
 
-        inputName.value = '';
         inputFile.value = '';
         croppedData.length = 0;
         btnUpload.classList.remove('is-loading');
-        res.ok ? showNoti('Uploaded') : showNoti('Upload failed');
+        res.status === 201 ? showNoti('Đã tải lên') : showNoti('Tải lên thất bại');
       })
       .catch(console.error);
 
@@ -111,6 +118,11 @@ window.addEventListener('load', () => {
     cropper = new Cropper(editable, options);
     removeChilds(document.querySelector('.tile.is-ancestor'));
 
+  }, false);
+
+  document.getElementById('list').addEventListener('click', () => {
+
+    document.querySelector('.modal').classList.add('is-active');
   }, false);
 }, false);
 

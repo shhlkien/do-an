@@ -1,8 +1,6 @@
 const router = require('express').Router();
 
 const { error } = require('../helpers/console');
-// const models = require('./models');
-const faceComparison = require('./face-comparison');
 const auth = require('./auth');
 const student = require('./student');
 const classes = require('./classes');
@@ -31,7 +29,8 @@ router
   .use('/admin', checkLogin, admin)
   .use('/student', checkLogin, student)
   .use('/class', classes)
-  .use('/attendance', checkLogin, attendance)
+  .use('/attendance', attendance)
+  // .use('/models', models)
   .use('/', checkLogin, home)
   .use((err, req, res, next) => {
 

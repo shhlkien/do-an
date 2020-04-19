@@ -7,6 +7,7 @@ const { Lecturer } = require('../models/lecturers');
 connect(process.env.DB_URL, {
     useFindAndModify: false,
     useNewUrlParser: true,
+    useUnifiedTopology: true
   })
   .catch(console.error);
 
@@ -21,6 +22,10 @@ Promise.resolve((() => {
     }, {
       name: 'Nguyen Thi B',
       username: 'nguyenthib@ictu.edu.vn',
+      password: password
+    }, {
+      name: 'admin',
+      username: 'admin',
       password: password
     }];
 

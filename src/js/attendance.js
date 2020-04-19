@@ -1,29 +1,17 @@
 import '../images/favicon.ico';
 import '../scss/test/attendance.scss';
 
-import * as faceapi from 'face-api.js';
-// import ajax from './ajax';
-import { getCurrentFaceDetectionNet, getFaceDetectorOptions, isFaceDetectionModelLoaded } from './face-detection-instance';
 import { createElement, waitUntilElementExists } from './dom';
 
-let faceMatcher = null;
-let skip = 0;
 const camTemplate = previewCamTemplate();
 const liveCamTemplate = previewLiveCamTemplate();
 const imgTemplate = previewImgTemplate();
+const iconOk = `<span class='icon has-text-info'><i class='icon-ok'></i></span>`;
 const openCamera = document.getElementById('openCamera');
 const inputFile = document.querySelector('.file-input');
 const liveDetection = document.getElementById('liveDetection');
 
-window.addEventListener('load', async () => {
-
-  try {
-    await Promise.all([
-      faceapi.loadFaceLandmarkModel('/assets/weights'),
-      faceapi.loadFaceRecognitionModel('/assets/weights')
-    ]);
-  }
-  catch (err) { console.error(err) }
+window.addEventListener('load', () => {
 
   openCamera.addEventListener('click', streamWebcam, false);
   inputFile.addEventListener('change', streamImage, false);
@@ -87,7 +75,6 @@ function streamImage() {
       const inputImg = await waitUntilElementExists('inputImg');
 
       inputImg.src = this.result;
-      skip = 0;
       inputFile.setAttribute('disabled', '');
       pseudoBtn.setAttribute('disabled', '');
 
@@ -102,8 +89,6 @@ function streamImage() {
 }
 
 function streamWebcam() {
-
-  skip = 0;
 
   navigator.mediaDevices.getUserMedia({ video: true })
     .then((stream) => {
@@ -143,7 +128,6 @@ function streamWebcam() {
 
 function onPlay(e) {
 
-  skip = 0;
   const overlay = document.getElementById('overlay');
 
   if (undefined === e.target || e.target.paused || e.target.ended)
@@ -157,7 +141,7 @@ function onPlay(e) {
 
   Promise.resolve(identify(e.target));
 
-  // setTimeout(() => onPlay(e));
+  setTimeout(() => onPlay(e));
 }
 
 function stopWebcam(camera) {
@@ -191,6 +175,7 @@ function capture(camera, output) {
 async function identify(input) {
 
   let loading = null;
+  let results = null;
 
   if (input instanceof HTMLImageElement) {
 
@@ -198,78 +183,33 @@ async function identify(input) {
     loading.classList.remove('is-hidden');
   }
 
-  try {
-    faceMatcher = await createBbtFaceMatcher(3) || faceMatcher;
-    await updateResults(input);
-    skip++;
-    input instanceof HTMLImageElement && loading && loading.classList.add('is-hidden');
-  }
-  catch (err) { console.error(err) }
-}
+  const formData = new FormData();
 
-async function updateResults(input) {
-
-  const overlay = document.getElementById('overlay');
+  formData.append('image', inputFile.files[0]);
+  formData.append('classId', document.getElementById('classId').value);
 
   try {
-    if (!isFaceDetectionModelLoaded())
-      await getCurrentFaceDetectionNet().load('/assets/weights');
+    const res = await fetch('/attendance/recognize', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json());
 
-    const results = await faceapi.detectAllFaces(input, getFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors();
-    const dims = faceapi.matchDimensions(overlay, input);
-    const resizedResults = faceapi.resizeResults(results, dims);
+    if (res.ok) {
 
-    resizedResults.forEach(({ detection, descriptor }) => {
+      results = res.results;
 
-      const label = faceMatcher.findBestMatch(descriptor).toString();
-      const drawBox = new faceapi.draw.DrawBox(detection.box, {
-        boxColor: '#ffed8ab8',
-        drawLabelOptions: { fontColor: '#000', padding: 8 },
-        label: label.replace(/\s\(.+\)/, ''),
-      });
-      drawBox.draw(overlay);
-    });
-  }
-  catch (err) { console.error(err) }
-}
+      if (results) {
 
-async function createBbtFaceMatcher(comparativeLimit = 1) {
+        for (let i = results.length; --i >= 0;)
+          document.getElementById(results[i].id).innerHTML = iconOk;
 
-  try {
-    comparativeLimit = Math.min(comparativeLimit, 5);
-
-    let params = new URLSearchParams({ skip: skip, type: 'name', }).toString();
-    const people = await fetch('/models/fetch?' + params).then(res => res.json());
-
-    if (people.length === 0) return null;
-
-    const labeledFaceDescriptors = await Promise.all(people.map(
-      async person => {
-
-        const descriptors = [];
-        params = new URLSearchParams({
-          limit: comparativeLimit,
-          name: person.name,
-          skip: skip,
-          type: 'models',
-        }).toString();
-        const models = await fetch('/models/fetch?' + params).then(res => res.json());
-
-        for (let i = models.length; --i >= 0;) {
-
-          const img = await faceapi.fetchImage(`model-images/${models[i]}`);
-          descriptors.push(await faceapi.computeFaceDescriptor(img));
-        }
-
-        return new faceapi.LabeledFaceDescriptors(person.name, descriptors);
+        document.getElementById('inputImg').src = '/attendance/result-image?r=' + Math.random().toString(36).substring(7);
       }
-    ));
-
-    return new faceapi.FaceMatcher(labeledFaceDescriptors);
+      input instanceof HTMLImageElement && loading && loading.classList.add('is-hidden');
+    }
   }
-  catch (err) {
-    console.error(err);
-  }
+  catch (err) { console.error(err) }
 }
 
 function previewImgTemplate() {

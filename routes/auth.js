@@ -9,7 +9,9 @@ router
 
     if (req.session.loggedIn) {
 
-      res.redirect('/');
+      const url = 'admin' === req.session.username ? '/admin' : '/';
+
+      res.redirect(url);
       return;
     }
 
@@ -19,6 +21,7 @@ router
   .post('/', async (req, res, next) => {
 
     const { username, password, action } = req.body;
+    const url = 'admin' === username ? '/admin' : '/';
 
     if ('logout' === action) {
 
@@ -29,7 +32,7 @@ router
     }
     else if ('login' === action && req.session.loggedIn) {
 
-      res.redirect('/');
+      res.redirect(url);
       return;
     }
 
@@ -46,7 +49,7 @@ router
       req.session.loggedIn = true;
       req.session.username = username;
       req.session.userId = lecturer.id;
-      res.redirect('/');
+      res.redirect(url);
     }
     catch (error) { next(error); }
   });

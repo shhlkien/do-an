@@ -4,4 +4,6 @@ nav.navbar.is-fixed-top.is-light(role='navigation' aria-label='main navigation')
   .navbar-menu
     .navbar-end
       a.navbar-item.has-text-link(href='/') Trang chủ
+      if isAdmin
+        a.navbar-item.has-text-link(href='/admin') Bảng điều khiển
       a.navbar-item.has-text-link#logout(href='#') Đăng xuất

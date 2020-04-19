@@ -7,22 +7,33 @@ block content
         .notification.is-hidden
           button.delete(type='button')
 
-        form#upload(method='post' enctype='multipart/form-data')
-          label.label Name
-          .field.is-grouped
-            .control.is-expanded
-              input.input(type='text' placeholder='Person' name='name')
+        form.is-clearfix#upload(method='post' enctype='multipart/form-data')
+          input#student_id(type='hidden' name='studentId')
+          .field.is-horizontal
+            .field-label
+              label.label Mã SV
+            .field-body
+              .field
+                .control
+                  input#studentId.input.is-static(type='text' readonly)
+          .field.is-horizontal
+            .field-label
+              label.label Họ tên
+            .field-body
+              .field
+                .control
+                  input#studentName.input.is-static(type='text' readonly)
+          .field.is-grouped.is-pulled-right
             .control
-              button.button.is-info(type='submit') Upload
-          p.help.has-text-danger.is-hidden Please provide person's name
-
-          .field
-            .file
-              label.file-label
-                input.file-input(type='file' accept='image/*' multiple name='models[]')
-                span.file-cta
-                  span.file-label Choose model images...
-            p.help.has-text-danger.is-hidden Please provide model images
+              .field
+                .file
+                  label.file-label
+                    input.file-input(type='file' accept='image/*' multiple name='models')
+                    span.file-cta
+                      span.file-label Chọn ảnh...
+                p.help.has-text-danger.is-hidden Please provide model images
+            .control
+              button.button.is-info(type='submit') Tải lên
 
         .tile.is-ancestor
 
@@ -37,3 +48,29 @@ block content
           .column
             figure.image
               img#editable
+  button#list.button.is-rounded.is-info(title='Danh sách sinh viên')
+    span.icon
+      i.icon-not-ok
+  .modal
+    .modal-background
+    .modal-card
+      header.modal-card-head
+        p.modal-card-title Danh sách sinh viên
+      section.modal-card-body.is-flex
+        table.table.is-striped.is-bordered
+          thead.thead
+            tr
+              th.has-text-centered Mã sinh viên
+              th.has-text-centered Họ tên
+              th.has-text-centered Đã có mẫu
+          tbody.tbody
+            each student in students
+              tr.fillToForm(data-student=JSON.stringify({_id: student._id, id: student.id, name: student.name}))
+                td= student.id
+                td= student.name
+                td.has-text-centered
+                  span.icon(class= student.images.length > 0 ? 'has-text-info' : 'has-text-danger')
+                    if student.images.length > 0
+                      i.icon-ok
+                    else
+                      i.icon-not-ok

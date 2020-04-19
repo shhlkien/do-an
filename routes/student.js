@@ -37,9 +37,19 @@ const modelUpload = multer({
 });
 
 router
-  .get('/:id', (req, res, next) => {
+  .get('/:id', async (req, res, next) => {
 
+    const { limit, skip } = req.query;
 
+    try {
+      const student = await Student
+        .findById(req.params.id)
+        .select('images -_id -name -id -__v')
+        .slice('images', [parseInt(skip), parseInt(limit)]).lean();
+
+      res.status(200).json({ images: student.images });
+    }
+    catch (error) { next(error); }
   })
   .post('/:id', modelUpload.array('models', 5), async (req, res, next) => {
 
@@ -72,7 +82,7 @@ router
 
           if (models.length === req.files.length) {
 
-            const result = await Student.updateOne({ id: studentId }, { $push: { images: models } }, { upsert: 1 });
+            const result = await Student.updateOne({ _id: studentId }, { $push: { images: models } }, { upsert: 1 });
 
             if (result.ok) res.sendStatus(201);
             else res.sendStatus(500);
@@ -84,13 +94,16 @@ router
   })
   .get('/', async (req, res, next) => {
 
-    const limit = 30;
-    const skip = (req.query.page - 1) * limit;
+    const limit = 20;
+    const skip = req.query.page * limit;
 
     try {
-      const students = await Student.find().select('id name images').limit(limit).skip(skip).lean();
+      // const students = await Student.find().select('_id name').limit(limit).skip(skip).lean();
+      const students = await Student
+        .find().select('name images')
+        .limit(limit).skip(skip).lean();
 
-      res.status(200).json({ amount: students.length, students });
+      res.status(200).json({ students });
     }
     catch (error) { next(error); }
   })
