@@ -1,5 +1,6 @@
-const { resolve } = require('path');
+const { resolve, sep } = require('path');
 const { tmpdir } = require('os');
+const { utils, writeFile } = require('xlsx');
 const multer = require('multer');
 const router = require('express').Router();
 
@@ -33,30 +34,53 @@ router
     }
     catch (err) { next(err); }
   })
+  .get('/excel', async (req, res, next) => {
+
+    const { exp, file } = req.query;
+
+    if (req.session.downloadExp === parseInt(exp) && Date.now() < exp)
+      res.download(tmpdir + sep + file);
+    else res.sendStatus(400);
+  })
   .get('/:classId', async (req, res, next) => {
 
-    const { time, download } = req.query;
-    let data = null;
+    const { from, to } = req.query;
+    let downloadUrl = null;
 
-    if ('true' === download) {
+    try {
+      const data = await Attendance
+        .find({
+          _class: req.params.classId,
+          date: {
+            $gt: new Date(from).toISOString(),
+            $lt: new Date(to).toISOString()
+          }
+        })
+        .populate({
+          path: '_class',
+          select: 'name subject lecturer',
+          populate: {
+            path: 'lecturer',
+            select: 'name'
+          }
+        });
 
-    }
-    else if (time) {
+      if (data.length) {
 
-      try {
-        data = await getAttendanceDetail(req.params.classId, time);
+        exportToExcel(data, tmpdir + sep + data[0]._class.name + '.xlsx');
+
+        const downloadExp = Date.now() + 30000;
+        const params = new URLSearchParams({
+          file: data[0]._class.name + '.xlsx',
+          exp: downloadExp
+        });
+        req.session.downloadExp = downloadExp;
+        downloadUrl = '/attendance/excel?' + params;
       }
-      catch (error) { next(error); }
-    }
-    else {
-      try {
-        data = await getAttendanceList(req.params.classId);
-        const assets = extractAssets(res, 'attendance-detail');
 
-        res.render('attendance-detail', { ...assets, data });
-      }
-      catch (error) { next(error); }
+      res.status(200).json({ ok: true, downloadUrl });
     }
+    catch (err) { next(err); }
   })
   .get('/:classId/today', async (req, res, next) => {
 
@@ -65,22 +89,42 @@ router
     const dawn = new Date(`${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} 00:00:00`);
 
     try {
-      const classDetail = await Class
-        .findById(req.params.classId, 'name subject.name students')
-        .populate('students', 'id name')
-        .lean();
+      let classDetail;
       const isCreated = await Attendance.countDocuments({
+        _class: req.params.classId,
         date: {
           $lt: now.toISOString(),
           $gt: dawn.toISOString()
         }
       });
 
-      if (!isCreated)
+      if (!isCreated) {
+
+        classDetail = await Class
+          .findById(req.params.classId, 'name subject.name students')
+          .populate('students', 'id name')
+          .lean();
         await Attendance.create({
           _class: classDetail._id,
           students: classDetail.students
         });
+      }
+      else {
+        classDetail = await Attendance
+          .findOne({
+            _class: req.params.classId,
+            date: {
+              $lt: now.toISOString(),
+              $gt: dawn.toISOString()
+            }
+          })
+          .populate('_class', 'name subject.name')
+          .lean();
+        classDetail.name = classDetail._class.name;
+        classDetail.subject = classDetail._class.subject;
+        classDetail._id = classDetail._class._id;
+        delete classDetail._class;
+      }
 
       res.render('attendance', { ...assets, classDetail });
     }
@@ -130,19 +174,43 @@ router
 
 module.exports = router;
 
-function getAttendanceDetail(classId, time) {
+function exportToExcel(data, filename) {
 
-  return Attendance
-    .findOne({ _class: classId, date: time })
-    .populate('_class', 'name lecturer subject')
-    .populate('lecturer', 'name')
-    .lean();
-}
+  const dataToWrite = [
+    [`Mã học phần: ${data[0]._class.subject.id}`],
+    [`Tên học phần: ${data[0]._class.subject.name}`],
+    [`Lớp: ${ data[0]._class.name}`],
+    [`Giảng viên: ${data[0]._class.lecturer.name}`],
+    [],
+  ];
+  const students = data[0].students;
+  const exportedStudents = [];
 
-function getAttendanceList(classId) {
+  for (let i = 0; i < students.length; i++) {
 
-  return Attendance
-    .find({ _class: classId }, 'date _class')
-    .populate('_class', 'name subject lecturer')
-    .lean();
+    const student = students[i];
+    const exportedInfo = {
+      'Mã sinh viên': student.id,
+      'Họ tên': student.name,
+    };
+
+    for (const info of data) {
+
+      const date = `${info.date.getDate()}/${info.date.getMonth() + 1}/${info.date.getFullYear()}`;
+      const thisStudent = info.students.find(_student => _student.id === student.id);
+
+      if (thisStudent)
+        exportedInfo[date] = thisStudent.isAbsent ? '' : 'x';
+    }
+
+    exportedStudents[i] = exportedInfo;
+  }
+
+  const workbook = utils.book_new();
+  const worksheet = utils.aoa_to_sheet(dataToWrite);
+  const range = utils.decode_range(worksheet['!ref']);
+
+  utils.sheet_add_json(worksheet, exportedStudents, { origin: range.e.r + 2 });
+  utils.book_append_sheet(workbook, worksheet);
+  writeFile(workbook, filename);
 }

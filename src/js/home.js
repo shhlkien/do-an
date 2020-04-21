@@ -7,7 +7,7 @@ import logout from './logout';
 import ajax from './ajax';
 
 const datepickerOptions = {
-  format: 'dd/mm/yyyy',
+  format: 'mm/dd/yyyy',
   weekDayLabels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
   shortMonthLabels: ['Th 1', 'Th 2', 'Th 3', 'Th 4', 'Th 5', 'Th 6', 'Th 7', 'Th 8', 'Th 9', 'Th 10', 'Th 11', 'Th 12'],
   todayButtonLabel: 'Hôm nay',
@@ -88,16 +88,21 @@ window.addEventListener('load', () => {
 
     e.preventDefault();
 
-    const formData = new FormData();
+    const from = document.getElementById('from').DatePickerX.getValue();
+    const to = document.getElementById('to').DatePickerX.getValue();
+    const params = new URLSearchParams({
+      from: from,
+      to: to
+    });
 
-    ajax({
-        url: this.getAttribute('action'),
-        data: formData
-      })
-      .then(response => {
+    ajax({ url: this.getAttribute('action') + `?${params}` })
+      .then(res => JSON.parse(res.response))
+      .then(res => {
+        if (res.downloadUrl) {
 
-        console.info(`home.js:87: `, response)
-
+          const win = window.open(res.downloadUrl, '_blank');
+          win.focus();
+        }
       })
       .catch(console.error);
   }, false);

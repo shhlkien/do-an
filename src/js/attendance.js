@@ -201,8 +201,11 @@ async function identify(input) {
 
       if (results) {
 
-        for (let i = results.length; --i >= 0;)
-          document.getElementById(results[i].id).innerHTML = iconOk;
+        for (let i = results.length; --i >= 0;) {
+
+          const student = document.getElementById(results[i].id);
+          student && (student.innerHTML = iconOk);
+        }
 
         document.getElementById('inputImg').src = '/attendance/result-image?r=' + Math.random().toString(36).substring(7);
       }

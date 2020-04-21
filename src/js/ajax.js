@@ -7,9 +7,7 @@ export default function ajax(request) {
   return new Promise((resolve, reject) => {
 
     const xhr = new XMLHttpRequest();
-
     const { url, method, data, headers } = standardizeRequest(request);
-    // console.log(url, method, data, headers)
 
     xhr.addEventListener('load', () => resolve(xhr));
     xhr.addEventListener('error', () => reject(xhr));
