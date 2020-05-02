@@ -10,7 +10,7 @@ router
       const classes = await Class
         .find({ lecturer: req.session.userId }, 'name subject')
         .lean();
-      const assets = extractAssets(res, 'home', 'vendors~home');
+      const assets = extractAssets(res, 'home');
 
       res.render('home', { ...assets, classes });
     }

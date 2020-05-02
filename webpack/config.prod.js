@@ -1,5 +1,4 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -9,8 +8,11 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 module.exports = {
   mode: 'production',
   entry: {
-    'face-comparison': './src/js/face-comparison.js',
-    'models': './src/js/models.js',
+    admin: './src/js/admin.js',
+    attendance: './src/js/attendance.js',
+    home: './src/js/home.js',
+    login: './src/js/login.js',
+    models: './src/js/models.js',
   },
   output: {
     filename: 'js/[contenthash:7].js',
@@ -66,9 +68,6 @@ module.exports = {
       }
     }),
     new MiniCssExtractPlugin({ filename: 'css/[contenthash:7].css' }),
-    new CopyWebpackPlugin([
-      { from: 'src/models/weights/', to: 'weights/' }
-    ]),
   ],
   optimization: {
     splitChunks: {
@@ -82,4 +81,7 @@ module.exports = {
       new OptimizeCSSAssetsPlugin()
     ],
   },
+  node: {
+    fs: "empty"
+  }
 };
