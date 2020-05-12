@@ -6,11 +6,31 @@ block content
       .container
         .columns
           .column
-            a.box(href='#')
+            a.box#lecturer(href='#')
               p Nhập dữ liệu giảng viên
           .column
-            a.box(href='#')
+            a.box#student(href='#')
               p Nhập dữ liệu sinh viên
           .column
             a.box(href='/admin/models')
               p Nhập ảnh mẫu
+
+  .modal
+    .modal-background
+    .modal-content
+      form#uploadForm.box.is-clearfix(method='post')
+        .field
+          label.label Nhập danh sách từ Excel
+          .control
+            .file.has-name
+              label.file-label(for='file')
+                input#file.file-input(type='file')
+                span.file-cta
+                  span.file-label Chọn tập tin
+                span.file-name
+          p.help.is-hidden
+        .field.is-grouped.is-pulled-right
+          .control
+            button.button.is-info(type='submit') Nhập
+          .control
+            button.btnCancel.button(type='button') Hủy

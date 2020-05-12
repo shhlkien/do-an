@@ -14,7 +14,7 @@ const studentUpload = multer({
   }),
   fileFilter: function(req, file, cb) {
 
-    const mimetype = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+    const mimetype = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/wps-office.xlsx'];
 
     if (mimetype.includes(file.mimetype))
       cb(null, true);
