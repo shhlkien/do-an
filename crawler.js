@@ -12,8 +12,8 @@ const params = new URLSearchParams({
   iaf: 'type:photo',
 });
 const IMAGE_SELECTOR = '.tile--img__img.js-lazyload';
-// 'Scarlett Johansson actor', 'Jeremy Renner actor', 'Mark Ruffalo  actor', 'Chris Hemsworth actor', 'Don Cheadle actor', 'Paul Rudd actor', 'Benedict Cumberbatch actor', 'Robert Downey Jr. actor', 'Chadwick Boseman actor', 'Brie Larson actor', 'Tom Holland actor', 'Karen Gillan actor', 'Zoe Saldana actor', 'Evangeline Lilly actor', 'Tessa Thompson actor', 'Rene Russo actor', 'Elizabeth Olsen actor', 'Anthony Mackie actor', 'Sebastian Stan actor', 'Tom Hiddleston actor', 'Danai Gurira actor', 'Benedict Wong actor', 'Pom Klementieff actor', 'Dave Bautista actor', 'Letitia Wright actor', 'John Slattery actor', 'Tilda Swinton actor', 'Jon Favreau actor', 'Hayley Atwell actor', 'Natalie Portman actor', 'Chris Evans actor','Michael Douglas actor', 'William Hurt actor', 'Winston Duke actor', 'Hiroyuki Sanada actor', 'Tom Vaughan-Lawlor actor', 'Josh Brolin actor', 'Chris Pratt actor', 'Samuel L. Jackson actor', 'Ross Marquand actor', 'Joe Russo actor', 'Michael James Shaw actor', 'Ben Sakamoto actor', 'Cade Woodward actor', 'Stan Lee actor', 'John Michael Morris actor', 'Patrick Gorman actor'
-const people = ['Tobey Maguire actor', 'Willem Dafoe actor', 'James Franco actor'];
+// 'Scarlett Johansson actor', 'Jeremy Renner actor', 'Mark Ruffalo  actor', 'Chris Hemsworth actor', 'Don Cheadle actor', 'Paul Rudd actor', 'Benedict Cumberbatch actor', 'Robert Downey Jr. actor', 'Chadwick Boseman actor', 'Brie Larson actor', 'Tom Holland actor', 'Karen Gillan actor', 'Zoe Saldana actor', 'Evangeline Lilly actor', 'Tessa Thompson actor', 'Rene Russo actor', 'Elizabeth Olsen actor', 'Anthony Mackie actor', 'Sebastian Stan actor', 'Tom Hiddleston actor', 'Danai Gurira actor', 'Benedict Wong actor', 'Pom Klementieff actor', 'Dave Bautista actor', 'Letitia Wright actor', 'John Slattery actor', 'Tilda Swinton actor', 'Jon Favreau actor', 'Hayley Atwell actor', 'Natalie Portman actor', 'Chris Evans actor','Michael Douglas actor', 'William Hurt actor', 'Winston Duke actor', 'Hiroyuki Sanada actor', 'Tom Vaughan-Lawlor actor', 'Josh Brolin actor', 'Chris Pratt actor', 'Samuel L. Jackson actor', 'Ross Marquand actor', 'Joe Russo actor', 'Michael James Shaw actor', 'Ben Sakamoto actor', 'Cade Woodward actor', 'Stan Lee actor', 'John Michael Morris actor', 'Patrick Gorman actor', 'Tobey Maguire actor', 'Willem Dafoe actor', 'James Franco actor'
+const people = ['Daniel Day-Lewis', 'Dustin Lee Hoffman', 'Tom Hanks', 'Anthony Hopkins', 'Paul Newman', 'Denzel Washington', 'Spencer Tracy', 'Laurence Olivier', 'Jack Lemmon', 'Michael Caine', 'James Stewart', ' Robin Williams', 'Robert Duvall', ' Sean Penn actor', 'Morgan Freeman', 'Jeff Bridges', ' Sidney Poitier ', 'Peter O\'Toole ', 'Clint Eastwood ', 'Gene Hackman ', 'Charles Chaplin ', 'Ben Kingsley ', ' Philip Seymour Hoffman ', 'Leonardo DiCaprio ', 'Russell Crowe ', 'Kevin Spacey ', 'Humphrey Bogart ', 'Gregory Peck ', ' Clark Gable ', ' Gary Cooper ', ' George C. Scott', 'Jason Robards ', 'Charles Laughton ', 'Anthony Quinn', 'Peter Sellers ', 'James Cagney ', 'Peter Finch', 'Henry Fonda ', 'Cary Grant ', ' Richard Burton ', 'Burt Lancaster ', 'William Holden ', 'John Wayne ', ' Kirk Douglas ', 'Alec Guinness ', 'Christopher Plummer ', 'Tommy Lee Jones', 'Sean Connery ', 'Alan Arkin ', ' Christopher Walken ', 'Joe Pesci ', 'Ian McKellen ', 'Jon Voight ', ' Jeremy Irons '];
 
 (async () => {
   try {
@@ -30,7 +30,7 @@ const people = ['Tobey Maguire actor', 'Willem Dafoe actor', 'James Franco actor
 
     for (let j = people.length; --j >= 0;) {
 
-      params.append('q', people[j]);
+      params.append('q', people[j] + ' actor');
       await page.goto(webpage + params, { waitUntil: 'domcontentloaded', timeout: 0 });
       await page.waitForSelector(IMAGE_SELECTOR);
 
@@ -60,7 +60,7 @@ const people = ['Tobey Maguire actor', 'Willem Dafoe actor', 'James Franco actor
 
       if (images.length === 0) continue;
 
-      const dir = `seeds/models/${people[j]}`;
+      const dir = `test/models/${people[j]}`;
 
       if (!await exists(dir)) await mkdir(dir);
 

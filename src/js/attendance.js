@@ -10,12 +10,14 @@ const iconOk = `<span class='icon has-text-info'><i class='icon-ok'></i></span>`
 const openCamera = document.getElementById('openCamera');
 const inputFile = document.querySelector('.file-input');
 const liveDetection = document.getElementById('liveDetection');
+const iconChecks = document.querySelectorAll('table .icon');
 
 window.addEventListener('load', () => {
 
   openCamera.addEventListener('click', streamWebcam, false);
   inputFile.addEventListener('change', streamImage, false);
   liveDetection.addEventListener('click', liveStream, false);
+  iconChecks.forEach(icon => { icon.addEventListener('click', checkByHand, false); });
 }, false);
 
 function liveStream() {
@@ -281,4 +283,40 @@ function previewLiveCamTemplate() {
   box.append(video, canvas);
 
   return row1.outerHTML + box.outerHTML;
+}
+
+function checkByHand() {
+
+  const isAbsent = !this.classList.contains('has-text-info');
+  const body = {
+    classId: document.getElementById('classId').value,
+    studentId: this.parentNode.id,
+    isAbsent
+  }
+
+  fetch('/attendance/check-by-hand', {
+      method: 'put',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(res => {
+
+      if (res.ok) {
+
+        if (isAbsent) {
+
+          this.classList.remove('has-text-grey-lighter');
+          this.classList.add('has-text-info');
+        }
+        else {
+          this.classList.add('has-text-grey-lighter');
+          this.classList.remove('has-text-info');
+        }
+      }
+    })
+    .catch(console.error);
 }

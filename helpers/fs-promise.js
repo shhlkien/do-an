@@ -59,3 +59,18 @@ exports.readFile = (path) => {
     });
   })
 }
+
+exports.readDir = (path, options = {
+  encoding: 'utf8',
+  withFileTypes: true
+}) => {
+
+  return new Promise((resolve, reject) => {
+
+    fs.readdir(path, options, (err, files) => {
+
+      if (err) reject(err);
+      resolve(files);
+    });
+  });
+}

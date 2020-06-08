@@ -77,6 +77,5 @@ block content
                 td= student.id
                 td= student.name
                 td.has-text-centered(id=student._id)
-                  if !student.isAbsent
-                    span.icon.has-text-info
-                      i.icon-ok
+                  span.icon(class= !student.isAbsent ? "has-text-info" : "has-text-grey-lighter")
+                    i.icon-ok

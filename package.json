@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@tensorflow/tfjs-node": "^1.7.0",
+    "@tensorflow/tfjs-node": "1.7.0",
     "bcrypt": "^4.0.1",
     "bulma": "^0.8.1",
     "canvas": "^2.6.1",
@@ -48,6 +48,7 @@
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "increase_file_watcher": "sudo sysctl fs.inotify.max_user_watches=524288 && sudo sysctl -p",
     "startdb": "sudo service mongod start",
+    "startdb_win": "mongod --dbpath=\"D:\\study\\node.js\\MongoDB\\data\\db\"",
     "training": "node face-api/training.js",
     "importdb": "mongorestore -d attendance seeds/attendance"
   },

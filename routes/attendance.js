@@ -170,6 +170,27 @@ router
       res.status(200).json({ results, ok: true });
     }
     catch (error) { next(error); }
+  })
+  .put('/check-by-hand', async (req, res, next) => {
+
+    const now = new Date(Date.now());
+    const dawn = new Date(`${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} 00:00:00`);
+
+    try {
+      await Attendance.updateOne({
+        _class: req.body.classId,
+        'students._id': req.body.studentId,
+        date: {
+          $lt: now.toISOString(),
+          $gt: dawn.toISOString()
+        }
+      }, {
+        $set: { 'students.$.isAbsent': req.body.isAbsent }
+      });
+
+      res.status(200).json({ ok: true });
+    }
+    catch (error) { next(error); }
   });
 
 module.exports = router;
